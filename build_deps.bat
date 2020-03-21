@@ -15,4 +15,9 @@ pushd .
 call build_fmt.bat
 popd 
 
+pushd .
+call build_openal.bat
+popd 
+
+
 pause
