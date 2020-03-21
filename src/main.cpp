@@ -6,8 +6,11 @@
 #include <AL/alc.h>
 #include <AL/alext.h>
 
+#include <AL/alut.h>
+
 int main(int argc, char** argv)
 {
+	alutInit(&argc, argv);
 	ALCdevice* device;
 	ALCcontext* context;
 	device = alcOpenDevice(NULL);
@@ -18,6 +21,15 @@ int main(int argc, char** argv)
 		throw std::exception("Could not create context");
 	}
 	alcMakeContextCurrent(context);
+
+	ALuint buffer = alutCreateBufferHelloWorld();
+	ALuint source;
+	alGenSources(1, &source);
+	alSourcei(source, AL_BUFFER, buffer);
+	std::cout << buffer << std::endl;
+	std::cout << "Playing source" << std::endl;
+	alSourcePlay(source);
+
 
 	AssetLoader::init(argv[0]);
 	{

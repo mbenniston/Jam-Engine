@@ -24,4 +24,3 @@ goto :END
 echo Could not build ALUT!
 
 :END
-pause

@@ -21,11 +21,11 @@ project "Jam-Engine"
 	
 	files "src/**"
 
-	includedirs { "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/" }
+	includedirs { "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/", "./modules/openal-soft/include/AL/", "./modules/freealut/include/" }
 	
-	libdirs { "deps/physfs/%{cfg.longname}/", "deps/fmt/%{cfg.longname}/", "deps/openal-soft/%{cfg.longname}/" }
+	libdirs { "deps/physfs/%{cfg.longname}/", "deps/fmt/%{cfg.longname}/", "deps/openal-soft/%{cfg.longname}/", "deps/freealut/%{cfg.longname}/" }
 	
-	links { "physfs-static.lib", "common.lib", "ex-common.lib", "OpenAL32.lib" }
+	links { "physfs-static.lib", "common.lib", "ex-common.lib", "OpenAL32.lib", "alut_static.lib" }
 
 	filter { "configurations:Debug" }
 		links { "fmtd.lib" }
