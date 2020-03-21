@@ -1,5 +1,7 @@
 @echo off
 
+git submodule update --init --recursive
+
 cd scripts
 pushd .
 call build_glfw.bat
