@@ -1,13 +1,18 @@
 #include <iostream>
-#include <physfs.h>
+#include "AssetLoader.h"
+#include "PowerLogger.hpp"
 
 int main(int argc, char** argv)
 {
-	PHYSFS_init(argv[0]);
-	PHYSFS_mount("res","./res/", true);
-	PHYSFS_deinit();
+	AssetLoader::init(argv[0]);
 
-	std::cout << "hello world" << std::endl;
+	auto a = AssetLoader::LoadArchive("myArchive", "test.zip");
+	auto f = a.readFile("test.txt");
+	std::cout << std::string(f.getData().begin(), f.getData().end()) << std::endl;
+
 	std::cin.get();
+
+	AssetLoader::deinit();
+
 	return 0;
 }

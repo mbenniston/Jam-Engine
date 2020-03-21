@@ -21,8 +21,19 @@ project "Jam-Engine"
 	
 	files "src/**"
 
-	libdirs { "" }
+	includedirs { "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/" }
+	
+	libdirs { "deps/physfs/%{cfg.longname}/", "deps/fmt/%{cfg.longname}/" }
+	
+	links { "physfs-static.lib" }
 
-	includedirs { "./modules/physfs/src/" }
+	filter { "configurations:Debug" }
+		links { "fmtd.lib" }
+	
+	filter { "configurations:Release" }
+		links { "fmt.lib" }
+	
+	filter { }
+
 
     filter {}
