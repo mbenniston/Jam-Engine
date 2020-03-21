@@ -17,6 +17,6 @@
 [submodule "modules/physfs"]
 	path = modules/physfs
 	url = https://github.com/criptych/physfs.git
-[submodule ".\\modules\\fmt"]
-	path = .\\modules\\fmt
+[submodule "modules/fmt"]
+	path = modules/fmt
 	url = https://github.com/fmtlib/fmt.git
