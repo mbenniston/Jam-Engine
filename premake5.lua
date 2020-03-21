@@ -2,18 +2,27 @@ workspace "Game Engine"
 	language "C++"
 	architecture "x86_64"
 	configurations { "Debug", "Release" }
-	
+	cppdialect 'C++17' 
+
 	filter { "configurations:Debug" }
-		symbols "On"
+        runtime "Debug"
+        symbols "On"
 	
 	filter { "configurations:Release" }
-		optimize "On"
-	
+        runtime "Release"
+        optimize "On"
 	filter { }
 	
-	targetdir ("Build/Bin/%{prj.name}/%{cfg.longname}")
-	objdir ("Build/Obj/%{prj.name}/%{cfg.longname}")
-
+	targetdir ("bin/%{cfg.longname}")
+    objdir ("obj/%{cfg.longname}")
+    
 project "Jam-Engine"
-	kind "StaticLib"
-	files "./src/**"
+	kind "ConsoleApp"
+	
+	files "src/**"
+
+	libdirs { "" }
+
+	includedirs { "./modules/physfs/src/" }
+
+    filter {}

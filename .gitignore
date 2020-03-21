@@ -1,6 +1,11 @@
 *.sln
 *.vcxproj
-./obj/**
-./bin/**
+*.user
+
 .vs/
 .vscode/
+modules/**
+bin/**
+deps/**
+obj/**
+
