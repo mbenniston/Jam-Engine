@@ -20,6 +20,6 @@
 [submodule "modules/fmt"]
 	path = modules/fmt
 	url = https://github.com/fmtlib/fmt.git
-[submodule "modules\\rlutil"]
-	path = modules\\rlutil
+[submodule "modules/rlutil"]
+	path = modules/rlutil
 	url = https://github.com/tapio/rlutil.git
