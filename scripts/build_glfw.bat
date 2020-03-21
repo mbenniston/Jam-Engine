@@ -1,3 +1,4 @@
+@echo off
 echo Building GLFW...
 :: \Jam-Engine
 cd .\..\ || goto :ERROR

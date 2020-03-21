@@ -1,3 +1,4 @@
+@echo off
 echo Building OpenAL...
 :: \Jam-Engine
 cd .\..\ || goto :ERROR

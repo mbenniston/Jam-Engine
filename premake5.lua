@@ -15,6 +15,7 @@ workspace "Game Engine"
 	
 	targetdir ("bin/%{cfg.longname}")
     objdir ("obj/%{cfg.longname}")
+
     
 project "Jam-Engine"
 	kind "ConsoleApp"
@@ -23,11 +24,11 @@ project "Jam-Engine"
 
 	defines {"ALUT_STATIC"}
 
-	includedirs { "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/", "./modules/openal-soft/include/AL/", "./modules/freealut/include/" }
+	includedirs { "./modules/", "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/", "./modules/openal-soft/include/AL/", "./modules/freealut/include/", "./modules/glfw/include/",  "./modules/glad/%{cfg.longname}/include" }
 	
-	libdirs { "deps/physfs/%{cfg.longname}/", "deps/fmt/%{cfg.longname}/", "deps/openal-soft/%{cfg.longname}/", "deps/freealut/%{cfg.longname}/" }
+	libdirs {"deps/glfw/%{cfg.longname}/", "deps/physfs/%{cfg.longname}/", "deps/fmt/%{cfg.longname}/", "deps/openal-soft/%{cfg.longname}/", "deps/freealut/%{cfg.longname}/", "deps/glfw/%{cfg.longname}/", "deps/glad/%{cfg.longname}/" }
 	
-	links { "physfs-static.lib", "common.lib", "ex-common.lib", "OpenAL32.lib", "alut_static.lib" }
+	links { "physfs-static.lib", "common.lib", "ex-common.lib", "OpenAL32.lib", "alut_static.lib", "glfw3.lib", "glad.lib" }
 
 	filter { "configurations:Debug" }
 		links { "fmtd.lib" }

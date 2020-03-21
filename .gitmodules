@@ -29,3 +29,6 @@
 [submodule "modules/freealut"]
 	path = modules/freealut
 	url = https://github.com/mbenniston/freealut.git
+[submodule "modules/glad"]
+	path = modules/glad
+	url = https://github.com/mbenniston/glad.git

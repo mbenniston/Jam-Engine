@@ -1,6 +1,7 @@
 #include <iostream>
 #include "AssetLoader.h"
 #include "PowerLogger.hpp"
+#include <cassert>
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -8,8 +9,18 @@
 
 #include <AL/alut.h>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 int main(int argc, char** argv)
 {
+	assert(glfwInit() == GLFW_TRUE);
+
+	auto win = glfwCreateWindow(1280, 720, "Hello there", NULL, NULL);
+	glfwMakeContextCurrent(win);
+
+	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
 	alutInit(&argc, argv);
 	ALCdevice* device;
 	ALCcontext* context;
@@ -26,12 +37,10 @@ int main(int argc, char** argv)
 	ALuint source;
 	alGenSources(1, &source);
 	alSourcei(source, AL_BUFFER, buffer);
-	alSource3f(source, AL_POSITION, -4, 0, -1);
-	
+
 	std::cout << buffer << std::endl;
 	std::cout << "Playing source" << std::endl;
 	alSourcePlay(source);
-
 
 	AssetLoader::init(argv[0]);
 	{
@@ -42,6 +51,7 @@ int main(int argc, char** argv)
 		std::cin.get();
 	}
 	AssetLoader::deinit();
+	glfwTerminate();
 
 	return 0;
 }

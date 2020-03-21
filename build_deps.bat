@@ -23,4 +23,8 @@ pushd .
 call build_alut.bat
 popd 
 
+pushd .
+call build_glad.bat
+popd 
+
 pause
