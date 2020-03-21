@@ -27,7 +27,7 @@ AssetLoader::~AssetLoader()
 {
 }
 
-File Archive::readFile(const std::string& fileName)
+File Archive::openFile(const std::string& fileName)
 {
 	PHYSFS_File* fileHandle = PHYSFS_openRead((m_name + "/" + fileName).c_str());
 	if (!fileHandle) {
@@ -41,6 +41,14 @@ Archive::Archive(const std::string& name) : m_name(name)
 {
 }
 
+void File::close()
+{
+	if (!PHYSFS_close(m_fileHandle)) {
+		throw std::exception("Cannot close file");
+		m_fileHandle = nullptr;
+	}
+}
+
 File::File(const std::string& name, PHYSFS_File* fileHandle) : m_name(name), m_fileHandle(fileHandle)
 {
 	const int BUF_LEN = 100;
@@ -49,5 +57,12 @@ File::File(const std::string& name, PHYSFS_File* fileHandle) : m_name(name), m_f
 	while (bytesRead > 0) {
 		bytesRead = PHYSFS_readBytes(fileHandle, buffer.data(), BUF_LEN);
 		m_data.insert(m_data.end(), buffer.begin(), buffer.begin() + bytesRead);
+	}
+}
+
+File::~File()
+{
+	if (m_fileHandle) {
+		close();
 	}
 }

@@ -20,8 +20,10 @@ public:
 		return m_data;
 	}
 
+	void close();
+
 	File(const std::string& name, PHYSFS_File* fileHandle);
-	~File() {}
+	~File();
 };
 
 class Archive
@@ -31,7 +33,7 @@ private:
 
 public:
 		
-	File readFile(const std::string& fileName);
+	File openFile(const std::string& fileName);
 
 	Archive(const std::string& name);
 
