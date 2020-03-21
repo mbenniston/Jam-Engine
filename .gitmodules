@@ -26,6 +26,3 @@
 [submodule "modules/openal-soft"]
 	path = modules/openal-soft
 	url = https://github.com/kcat/openal-soft.git
-[submodule "modules/freealut"]
-	path = modules/freealut
-	url = https://github.com/vancegroup/freealut
