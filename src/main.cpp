@@ -26,6 +26,8 @@ int main(int argc, char** argv)
 	ALuint source;
 	alGenSources(1, &source);
 	alSourcei(source, AL_BUFFER, buffer);
+	alSource3f(source, AL_POSITION, -4, 0, -1);
+	
 	std::cout << buffer << std::endl;
 	std::cout << "Playing source" << std::endl;
 	alSourcePlay(source);

@@ -21,6 +21,8 @@ project "Jam-Engine"
 	
 	files "src/**"
 
+	defines {"ALUT_STATIC"}
+
 	includedirs { "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/", "./modules/openal-soft/include/AL/", "./modules/freealut/include/" }
 	
 	libdirs { "deps/physfs/%{cfg.longname}/", "deps/fmt/%{cfg.longname}/", "deps/openal-soft/%{cfg.longname}/", "deps/freealut/%{cfg.longname}/" }
