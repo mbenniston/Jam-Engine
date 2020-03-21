@@ -19,5 +19,8 @@ pushd .
 call build_openal.bat
 popd 
 
+pushd .
+call build_alut.bat
+popd 
 
 pause
