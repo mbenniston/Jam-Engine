@@ -4,7 +4,6 @@
 
 .vs/
 .vscode/
-modules/**
 bin/**
 deps/**
 obj/**
