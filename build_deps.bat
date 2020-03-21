@@ -10,4 +10,9 @@ popd
 pushd .
 call build_physfs.bat
 popd 
+
+pushd .
+call build_fmt.bat
+popd 
+
 pause
