@@ -22,6 +22,7 @@ public:
 
 	void close();
 
+	File(const std::string& filePath);
 	File(const std::string& name, PHYSFS_File* fileHandle);
 	~File();
 };
@@ -36,7 +37,6 @@ public:
 	File openFile(const std::string& fileName);
 
 	Archive(const std::string& name);
-
 };
 
 class AssetLoader final

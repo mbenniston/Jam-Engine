@@ -2,12 +2,9 @@
 #include "AssetLoader.h"
 #include "PowerLogger.hpp"
 #include <cassert>
+#include <fstream>
 
-#include <AL/al.h>
-#include <AL/alc.h>
-#include <AL/alext.h>
-
-#include <AL/alut.h>
+#include "Audio.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -33,24 +30,21 @@ int main(int argc, char** argv)
 	}
 	alcMakeContextCurrent(context);
 
-	ALuint buffer = alutCreateBufferHelloWorld();
-	ALuint source;
-	alGenSources(1, &source);
-	alSourcei(source, AL_BUFFER, buffer);
-
-	std::cout << buffer << std::endl;
-	PLOG_INFO("hello world {0}", 10);
-	PLOG_INFO("Playing source");
-	PLOG_ERROR("Playing source");
-	PLOG_WARN("Playing source");
-	for(int j = 0; j < 10; j++) alSourcePlay(source);
-
 	AssetLoader::init(argv[0]);
 	{
 		auto a = AssetLoader::LoadArchive("myArchive", "test.zip");
 		auto f = a.openFile("test.txt");
 		std::cout << std::string(f.getData().begin(), f.getData().end()) << std::endl;
 
+		Buffer buf;
+		buf.load(File("file1.wav"));
+		Source s;
+		s.gen();
+		s.setBuffer(buf);
+		s.play();
+		
+		buf.remove();
+		s.remove();
 		std::cin.get();
 	}
 	AssetLoader::deinit();

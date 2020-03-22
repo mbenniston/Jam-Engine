@@ -2,6 +2,7 @@
 #include <physfs.h>
 #include <array>
 #include <iostream>
+#include <fstream>
 
 void AssetLoader::init(const char* argv0)
 {
@@ -43,9 +44,26 @@ Archive::Archive(const std::string& name) : m_name(name)
 
 void File::close()
 {
-	if (!PHYSFS_close(m_fileHandle)) {
+	if (m_fileHandle && !PHYSFS_close(m_fileHandle)) {
 		throw std::exception("Cannot close file");
 		m_fileHandle = nullptr;
+	}
+}
+
+File::File(const std::string& filePath) : m_fileHandle(nullptr)
+{
+	std::ifstream str(filePath, std::ios::binary | std::ios::ate | std::ios::in);
+
+	if (!str) {
+		throw std::exception("Could not open file!");
+	}
+
+	std::streamsize size = str.tellg();
+	str.seekg(0, std::ios::beg);
+
+	m_data.resize(size);
+	if (!str.read(m_data.data(), size)) {
+		throw std::exception("Could not read file!");
 	}
 }
 
