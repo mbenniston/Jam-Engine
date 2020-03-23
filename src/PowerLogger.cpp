@@ -1,3 +1,4 @@
+#include "jampch.h"
 #include "PowerLogger.hpp"
 #include <iostream>
 #include <fmt/format.h>

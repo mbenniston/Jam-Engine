@@ -1,14 +1,29 @@
+#include "jampch.h"
 #include "Window.hpp"
 #include <cassert>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "PowerLogger.hpp"
+
+void error_callback(int error, const char* description)
+{
+	PLOG_ERROR("Error: {}", description);
+}
 
 void Jam::Window::open(int width, int height, const std::string& title)
 {
-	assert(glfwInit() == GLFW_TRUE);
+	if(!glfwInit()) {
+		throw std::exception("Cannot initialize glfw!");
+	}
 
-	m_handle = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+	glfwSetErrorCallback(error_callback);
+
+	m_handle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	if (!m_handle) {
+		throw std::exception("Could not open window!");
+	}
+
 	glfwMakeContextCurrent(m_handle);
 
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -23,6 +38,7 @@ void Jam::Window::update()
 void Jam::Window::close()
 {
 	glfwTerminate();
+	m_handle = nullptr;
 }
 
 glm::ivec2 Jam::Window::getSize() const
@@ -64,5 +80,6 @@ Jam::Window::~Window()
 {
 	if (m_handle) {
 		close();
+		m_handle = nullptr;
 	}
 }

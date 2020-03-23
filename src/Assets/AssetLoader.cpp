@@ -1,3 +1,4 @@
+#include "jampch.h"
 #include "AssetLoader.h"
 #include <physfs.h>
 #include <array>
