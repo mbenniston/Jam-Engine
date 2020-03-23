@@ -21,3 +21,7 @@
 #include "../modules/openal-soft/include/AL/alext.h"
 
 #include "../modules/freealut/include/AL/alut.h"
+
+#include "../modules/imgui/imgui.h"
+
+#include "../modules/stb/stb_image.h"

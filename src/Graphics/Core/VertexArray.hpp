@@ -14,7 +14,7 @@ namespace Jam
 		void bind() const;
 		void unbind() const;
 		void gen();
-		void remove();
+		void release();
 
 		VertexArray() = default;
 		virtual ~VertexArray() = default;

@@ -17,7 +17,7 @@ void Jam::VertexArray::gen()
 	glGenVertexArrays(1, &m_id);
 }
 
-void Jam::VertexArray::remove()
+void Jam::VertexArray::release()
 {
 	MISC_CHECK_REM_ID(m_id);
 	glDeleteVertexArrays(1, &m_id);

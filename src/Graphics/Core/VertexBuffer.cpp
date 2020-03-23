@@ -17,7 +17,7 @@ void Jam::VertexBuffer::gen()
 	glGenBuffers(1, &m_id);
 }
 
-void Jam::VertexBuffer::remove()
+void Jam::VertexBuffer::release()
 {
 	MISC_CHECK_REM_ID(m_id);
 	glDeleteBuffers(1, &m_id);

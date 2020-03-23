@@ -15,6 +15,10 @@ namespace Jam
 
 	public:
 
+		inline GLFWwindow* getHandle() {
+			return m_handle;
+		}
+
 		void open(int width, int height, const std::string& title);
 		void update();
 		void close();

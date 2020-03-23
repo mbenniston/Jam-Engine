@@ -18,7 +18,7 @@ namespace Jam
 		void bind() const;
 		void unbind() const;
 		void gen();
-		void remove();
+		void release();
 
 		void store(const void* const data, size_t length);
 
