@@ -8,6 +8,7 @@
 #include "Audio/Audio.h"
 #include "Assets/AssetLoader.h"
 #include "PowerLogger.hpp"
+#include "Graphics/Core/VertexBuffer.hpp"
 
 int main(int argc, char** argv)
 {
@@ -28,8 +29,11 @@ int main(int argc, char** argv)
 		s.play();
 
 		while (s.isPlaying() && !win.shouldClose()) {
+			glClear(GL_COLOR_BUFFER_BIT);
+			glClearColor(0, 1, 1, 1);
 			win.update();
 		}
+		s.play();
 
 		win.close();
 		std::cin.get();

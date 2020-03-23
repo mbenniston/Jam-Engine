@@ -1,4 +1,5 @@
 #pragma once
+#include "PowerLogger.hpp"
 
 #ifndef NDEBUG
 	#define MISC_CHECK_GEN_ID(id) if ((id) != 0) PLOG_WARN(std::string("Possible Double Gen! " __FILE__ ":") + std::to_string(__LINE__));
