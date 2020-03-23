@@ -4,51 +4,37 @@
 #include <cassert>
 #include <fstream>
 
+#include "Window.hpp"
 #include "Audio.h"
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 int main(int argc, char** argv)
 {
-	assert(glfwInit() == GLFW_TRUE);
+	InitAudio();
 
-	auto win = glfwCreateWindow(1280, 720, "Hello there", NULL, NULL);
-	glfwMakeContextCurrent(win);
+	Jam::Window win;
+	win.open(1280, 720, "Hello window");
 
-	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-	alutInit(&argc, argv);
-	ALCdevice* device;
-	ALCcontext* context;
-	device = alcOpenDevice(NULL);
-	if (!device) throw std::exception("Could not open the default device");
-	
-	context = alcCreateContext(device, NULL);
-	if (!context) {
-		throw std::exception("Could not create context");
-	}
-	alcMakeContextCurrent(context);
-
-	AssetLoader::init(argv[0]);
+	Jam::AssetLoader::init(argv[0]);
 	{
-		auto a = AssetLoader::LoadArchive("myArchive", "test.zip");
+		auto a = Jam::AssetLoader::LoadArchive("myArchive", "test.zip");
 		auto f = a.openFile("test.txt");
 		std::cout << std::string(f.getData().begin(), f.getData().end()) << std::endl;
 
 		Buffer buf;
-		buf.load(File("file1.wav"));
+		buf.load(Jam::File("file1.wav"));
 		Source s;
 		s.gen();
 		s.setBuffer(buf);
 		s.play();
-		
+
+		while (s.isPlaying() && !win.shouldClose()) {
+			win.update();
+		}
+
 		buf.remove();
 		s.remove();
-		std::cin.get();
 	}
-	AssetLoader::deinit();
-	glfwTerminate();
-
+	Jam::AssetLoader::deinit();
+	DeinitAudio();
 	return 0;
 }

@@ -9,6 +9,7 @@
 
 #include "AssetLoader.h"
 #include "misc.hpp"
+#include "PowerLogger.hpp"
 
 class Buffer
 {
@@ -18,7 +19,7 @@ private:
 	friend class Source;
 public:
 
-	void load(const File& file) {
+	void load(const Jam::File& file) {
 		m_id = alutCreateBufferFromFileImage(file.getData().data(), file.getData().size());
 		if (m_id == 0) {
 			throw std::exception("Could not load wave file!");
@@ -36,7 +37,6 @@ public:
 		m_id = 0;
 	}
 };
-
 
 class Source
 {
@@ -91,4 +91,14 @@ public:
 
 class Listener
 {
+private:
+
+public:
+
+	Listener() {
+	}
 };
+
+void InitAudio();
+void DeinitAudio();
+
