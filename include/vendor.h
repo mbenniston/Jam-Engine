@@ -1,5 +1,5 @@
 
-#include "../modules/glm/glm/glm.hpp"
+#include <glm/glm.hpp>
 
 #if defined(JAM_DEBUG)
 #include "../modules/glad/Debug/include/glad/glad.h"
@@ -11,10 +11,10 @@
 #error build symbol not defined
 #endif
 
+#include <fmt/format.h>
 #include "../modules/glfw/include/GLFW/glfw3.h"
-#include "../modules/fmt/include/fmt/format.h"
 #include "../modules/rlutil/rlutil.h"
-#include "../modules/json/single_include/nlohmann/json.hpp"
+#include <json.hpp>
 
 #include "../modules/openal-soft/include/AL/al.h"
 #include "../modules/openal-soft/include/AL/alc.h"

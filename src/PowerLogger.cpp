@@ -2,7 +2,8 @@
 #include "PowerLogger.hpp"
 #include <iostream>
 #include <fmt/format.h>
-#include <rlutil.h>
+
+#include "vendor.h"
 
 void PowerLogger::logString(Level l, const std::string& message)
 {

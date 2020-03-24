@@ -1,15 +1,10 @@
 #pragma once
-#include <glm/glm.hpp>
 
-#include <AL/al.h>
-#include <AL/alc.h>
-#include <AL/alext.h>
+#include "vendor.h"
 
-#include <AL/alut.h>
-
-#include "Assets/AssetLoader.h"
-#include "misc.hpp"
-#include "PowerLogger.hpp"
+#include "../Assets/AssetLoader.h"
+#include "../misc.hpp"
+#include "../PowerLogger.hpp"
 
 namespace Jam
 {

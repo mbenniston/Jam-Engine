@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "PowerLogger.hpp"
+
 namespace Jam
 {
     static std::string readShader(const std::string& path) {
@@ -24,7 +26,18 @@ namespace Jam
 
         glCompileShader(shader);
 
-        //CHANGE ME: Check compilation status
+        GLint result = GL_FALSE;
+        int logLength;
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
+
+        if (result == GL_FALSE) {
+            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
+            std::vector<GLchar> shaderError(logLength);
+            glGetShaderInfoLog(shader, logLength, NULL, &shaderError[0]);
+
+            PLOG_ERROR("Shader compilation failed: {}", std::string(shaderError.begin(), shaderError.end()));
+            return 0;
+        }
 
         return shader;
     }
@@ -43,31 +56,35 @@ namespace Jam
 
     void Shader::loadFromFile(const File& vPath, const File& fPath) {
         loadFromString(
-            readShader(std::string(vPath.getData().begin(), vPath.getData().end())), 
-            readShader(std::string(fPath.getData().begin(), fPath.getData().end())));
+            std::string(vPath.getData().begin(), vPath.getData().end()),
+            std::string(fPath.getData().begin(), fPath.getData().end()));
     }
 
     void Shader::loadFromString(const std::string& vSource, const std::string& fSource) {
         m_program = glCreateProgram();
         GLuint vShader = loadShader(vSource, GL_VERTEX_SHADER), fShader = loadShader(fSource, GL_FRAGMENT_SHADER);
 
-        glAttachShader(m_program, vShader);
-        glAttachShader(m_program, fShader);
-        glLinkProgram(m_program);
-        glValidateProgram(m_program);
+        if (vShader != 0 && fShader != 0) {
+            glAttachShader(m_program, vShader);
+            glAttachShader(m_program, fShader);
+            glLinkProgram(m_program);
+            glValidateProgram(m_program);
 
-        glDeleteShader(vShader);
-        glDeleteShader(fShader);
-        std::cout << m_program << std::endl;
-
+            glDeleteShader(vShader);
+            glDeleteShader(fShader);
+        }
     }
 
     GLint Shader::getUniformLocation(const std::string& name) {
         if (m_uniforms.find(name) == m_uniforms.end()) {
             GLint id = glGetUniformLocation(m_program, name.c_str());
+            if (id < 0) {
+                PLOG_ERROR("Could not get uniform with name: {}", name);
+                return -1;
+            }
+
             m_uniforms[name] = id;
             return id;
-            //CHANGE ME: Check for when it is not found
         }
         else {
             return m_uniforms.at(name);

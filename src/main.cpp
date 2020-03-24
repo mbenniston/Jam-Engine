@@ -9,6 +9,7 @@
 #include "Assets/AssetLoader.h"
 #include "PowerLogger.hpp"
 #include "Graphics/Core/ImGuiHelper.hpp"
+#include "Graphics/Core/Shader.hpp"
 
 int main(int argc, char** argv)
 {
@@ -24,10 +25,15 @@ int main(int argc, char** argv)
 
 		Jam::Buffer buf;
 		buf.load(Jam::File("file1.wav"));
+
 		Jam::Source s;
 		s.gen();
 		s.setBuffer(buf);
 		s.play();
+
+		Jam::Shader shader;
+		shader.loadFromFile(a.openFile("shader.vert"), a.openFile("shader.frag"));
+		shader.getUniformLocation("fkgldjfglk");
 
 		while (s.isPlaying() || !win.shouldClose()) {
 			glClear(GL_COLOR_BUFFER_BIT);

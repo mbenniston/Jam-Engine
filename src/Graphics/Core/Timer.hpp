@@ -19,7 +19,7 @@ public:
 
     //in milliseconds
     double getTime() const {
-        std::chrono::duration timeTaken = m_end-m_start;
+        auto timeTaken = m_end-m_start;
         return (double)std::chrono::duration_cast<std::chrono::nanoseconds>(timeTaken).count() * powf(10, -6);
     }
 
