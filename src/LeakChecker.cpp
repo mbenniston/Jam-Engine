@@ -26,7 +26,7 @@ void LeakChecker::stop()
 		PLOG_INFO("No resource leaks detected");
 	}
 	else {
-		PLOG_ERROR("{} resource leaks detected", counter);
+		PLOG_WARN("{} resource leaks detected", counter);
 	}
 }
 
