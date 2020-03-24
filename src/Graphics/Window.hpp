@@ -3,11 +3,13 @@
 
 #include "vendor.h"
 
+#include "UI/Widget.hpp"
+
 struct GLFWwindow;
 
 namespace Jam
 {
-	class Window final
+	class Window final : public Frame
 	{
 	private:
 		GLFWwindow* m_handle;

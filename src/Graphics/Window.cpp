@@ -76,11 +76,11 @@ bool Jam::Window::shouldClose() const
 	return glfwWindowShouldClose(m_handle);
 }
 
-Jam::Window::Window() : m_handle(nullptr)
+Jam::Window::Window() : Jam::Frame({ 0,0 }, { 0,0 }, { 0,0 }, { 0,0}), m_handle(nullptr)
 {
 }
 
-Jam::Window::Window(int width, int height, const std::string& title)
+Jam::Window::Window(int width, int height, const std::string& title) : Jam::Frame({ 0,0 }, { 1,1 }, {0,0}, {width, height})
 {
 	open(width, height, title);
 }
