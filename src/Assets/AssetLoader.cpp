@@ -5,16 +5,20 @@
 #include <iostream>
 #include <fstream>
 
+#include "misc.hpp"
+
 namespace Jam
 {
 	void AssetLoader::init(const char* argv0)
 	{
 		PHYSFS_init(argv0);
+		MISC_LINC();
 	}
 
 	void AssetLoader::deinit()
 	{
 		PHYSFS_deinit();
+		MISC_LDEC();
 	}
 
 	Archive AssetLoader::LoadArchive(const std::string& name, const std::string& path)
@@ -37,6 +41,7 @@ namespace Jam
 		if (!fileHandle) {
 			throw std::exception("Could not find file");
 		}
+		MISC_LINC();
 
 		return ArchiveFile(fileName, fileHandle);
 	}
@@ -47,10 +52,11 @@ namespace Jam
 
 	void ArchiveFile::close()
 	{
-		if (m_fileHandle && !PHYSFS_close(m_fileHandle)) {
+		if (!PHYSFS_close(m_fileHandle)) {
 			throw std::exception("Cannot close file");
-			m_fileHandle = nullptr;
 		}
+		MISC_LDEC();
+		m_fileHandle = nullptr;
 	}
 
 	File::File(const std::string& filePath) : m_name(filePath)
