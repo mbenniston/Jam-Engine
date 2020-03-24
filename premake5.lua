@@ -57,7 +57,7 @@ project "Jam-Engine"
 	filter { }
 
 	postbuildcommands {
-		"lib.exe /OUT:./bin/%{cfg.longname}/jengine.lib ./bin/%{cfg.longname}/Jam-Engine.lib ./deps/physfs/%{cfg.longname}/physfs-static.lib ./deps/openal-soft/%{cfg.longname}/common.lib ./deps/openal-soft/%{cfg.longname}/ex-common.lib ./deps/openal-soft/%{cfg.longname}/OpenAL32.lib ./deps/freealut/%{cfg.longname}/alut_static.lib ./deps/glfw/%{cfg.longname}/glfw3.lib ./deps/glad/%{cfg.longname}/glad.lib"
+		"lib.exe /OUT:./bin/%{cfg.longname}/jengine.lib ./bin/%{cfg.longname}/Jam-Engine.lib ./deps/physfs/%{cfg.longname}/physfs-static.lib ./deps/openal-soft/%{cfg.longname}/common.lib ./deps/openal-soft/%{cfg.longname}/ex-common.lib ./deps/openal-soft/%{cfg.longname}/OpenAL32.lib ./deps/freealut/%{cfg.longname}/alut_static.lib ./deps/glfw/%{cfg.longname}/glfw3.lib ./deps/glad/%{cfg.longname}/glad.lib > nul 2>&1"
 	}
 
     filter {}

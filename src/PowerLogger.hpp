@@ -1,7 +1,6 @@
 #pragma once
 #include <ostream>
 #include <string>
-#include "vendor.h"
 
 class PowerLogger
 {

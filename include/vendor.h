@@ -1,3 +1,4 @@
+#pragma warning(push, 0)        
 
 #include <glm/glm.hpp>
 
@@ -20,8 +21,11 @@
 #include "../modules/openal-soft/include/AL/alc.h"
 #include "../modules/openal-soft/include/AL/alext.h"
 
+#define ALUT_STATIC
 #include "../modules/freealut/include/AL/alut.h"
 
 #include "../modules/imgui/imgui.h"
 
 #include "../modules/stb/stb_image.h"
+
+#pragma warning(pop)
