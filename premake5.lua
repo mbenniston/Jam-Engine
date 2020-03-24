@@ -38,7 +38,7 @@ project "Jam-Engine"
 	pchheader "jampch.h"
 	pchsource "src/jampch.cpp"
 
-	defines {"ALUT_STATIC"}
+	defines {"ALUT_STATIC", "IMGUI_IMPL_OPENGL_LOADER_CUSTOM=\"../../modules/glad/%{cfg.longname}/include/glad/glad.h\""}
 
 	-- includedirs { "./src/",  "./modules/glm", "./modules/imgui", "./modules/", "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/", "./modules/openal-soft/include/AL/", "./modules/freealut/include/", "./modules/glfw/include/",  "./modules/glad/%{cfg.longname}/include" }
 	-- any other includes that are not in the include directory are private includes and should not be used by anything else

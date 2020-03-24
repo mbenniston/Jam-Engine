@@ -9,3 +9,4 @@
 #include "Timer.hpp"
 #include "VertexBuffer.hpp"
 #include "VertexArray.hpp"
+#include "Camera2D.hpp"

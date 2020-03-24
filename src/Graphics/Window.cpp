@@ -8,8 +8,13 @@
 
 void error_callback(int error, const char* description)
 {
-	PLOG_ERROR("Error: {}", description);
+	//PLOG_ERROR("Error: {}", description);
 }
+
+void glad_cb(const char* name, void* funcptr, int len_args, ...) {
+
+}
+
 
 void Jam::Window::open(int width, int height, const std::string& title)
 {
@@ -17,7 +22,7 @@ void Jam::Window::open(int width, int height, const std::string& title)
 		throw std::exception("Cannot initialize glfw!");
 	}
 
-	glfwSetErrorCallback(error_callback);
+	//glfwSetErrorCallback(error_callback);
 
 	m_handle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (!m_handle) {
@@ -27,6 +32,10 @@ void Jam::Window::open(int width, int height, const std::string& title)
 	glfwMakeContextCurrent(m_handle);
 
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+#ifdef GLAD_DEBUG
+	glad_set_pre_callback(glad_cb);
+	glad_set_post_callback(glad_cb);
+#endif
 }
 
 void Jam::Window::update()

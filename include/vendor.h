@@ -1,6 +1,9 @@
 #pragma warning(push, 0)        
 
 #include <glm/glm.hpp>
+#include <glm/common.hpp>
+#include <glm/matrix.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #if defined(JAM_DEBUG)
 #include "../modules/glad/Debug/include/glad/glad.h"

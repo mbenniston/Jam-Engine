@@ -1,10 +1,7 @@
 #pragma once
-
-#define JAM_DEBUG
 #include <string>
 
 #include "vendor.h"
-
 
 struct GLFWwindow;
 

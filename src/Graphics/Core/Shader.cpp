@@ -92,7 +92,12 @@ namespace Jam
     }
 
 
-    void Shader::loadUniform(const std::string& name, float f0) {
+	void Shader::loadUniform(const std::string& name, int i0)
+	{
+        glUniform1i(getUniformLocation(name), i0);
+    }
+
+	void Shader::loadUniform(const std::string& name, float f0) {
         glUniform1f(getUniformLocation(name), f0);
     }
 

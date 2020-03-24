@@ -17,6 +17,7 @@ namespace Jam
 
         GLint getUniformLocation(const std::string& name);
 
+        void loadUniform(const std::string& name, int);
         void loadUniform(const std::string& name, float);
         void loadUniform(const std::string& name, glm::vec2);
         void loadUniform(const std::string& name, glm::vec3);
