@@ -1,0 +1,10 @@
+create ./bin/Release/libjengine.a 
+addlib ./bin/Release/libJam-Engine.a
+addlib ./deps/physfs/Release/libphysfs.a
+addlib ./deps/openal-soft/Release/libopenal.a
+addlib ./deps/freealut/Release/src/libalut.a
+addlib ./deps/glfw/Release/src/libglfw3.a
+addlib ./deps/glad/Release/libglad.a
+addlib ./deps/fmt/Release/libfmt.a
+save
+end

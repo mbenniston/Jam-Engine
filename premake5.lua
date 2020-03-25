@@ -25,6 +25,10 @@ project "Jam-Engine"
 	files "modules/imgui/examples/imgui_impl_opengl3.cpp"
 	files "modules/imgui/examples/imgui_impl_glfw.cpp"
 	files "modules/imgui/*.cpp"
+
+
+		 
+
 	filter {"files:modules/imgui/**.cpp"}
 		flags {"NoPCH"}
 	filter {}
@@ -35,10 +39,12 @@ project "Jam-Engine"
 
 	files "src/**"
 	
-	pchheader "jampch.h"
-	pchsource "src/jampch.cpp"
+	filter "system:Windows" 
+		pchheader "jampch.h"
+		pchsource "src/jampch.cpp"
+	filter {}
 
-	defines {"ALUT_STATIC", "IMGUI_IMPL_OPENGL_LOADER_CUSTOM=\"../../modules/glad/%{cfg.longname}/include/glad/glad.h\""}
+	defines {"IMGUI_IMPL_OPENGL_LOADER_CUSTOM=\"../../modules/glad/%{cfg.longname}/include/glad/glad.h\""}
 
 	-- includedirs { "./src/",  "./modules/glm", "./modules/imgui", "./modules/", "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/", "./modules/openal-soft/include/AL/", "./modules/freealut/include/", "./modules/glfw/include/",  "./modules/glad/%{cfg.longname}/include" }
 	-- any other includes that are not in the include directory are private includes and should not be used by anything else
@@ -56,8 +62,14 @@ project "Jam-Engine"
 	
 	filter { }
 
-	postbuildcommands {
-		"lib.exe /OUT:./bin/%{cfg.longname}/jengine.lib ./bin/%{cfg.longname}/Jam-Engine.lib ./deps/physfs/%{cfg.longname}/physfs-static.lib ./deps/openal-soft/%{cfg.longname}/common.lib ./deps/openal-soft/%{cfg.longname}/ex-common.lib ./deps/openal-soft/%{cfg.longname}/OpenAL32.lib ./deps/freealut/%{cfg.longname}/alut_static.lib ./deps/glfw/%{cfg.longname}/glfw3.lib ./deps/glad/%{cfg.longname}/glad.lib > nul 2>&1"
+	filter "system:windows" 
+		postbuildcommands {
+			"lib.exe /OUT:./bin/%{cfg.longname}/jengine.lib ./bin/%{cfg.longname}/Jam-Engine.lib ./deps/physfs/%{cfg.longname}/physfs-static.lib ./deps/openal-soft/%{cfg.longname}/common.lib ./deps/openal-soft/%{cfg.longname}/ex-common.lib ./deps/openal-soft/%{cfg.longname}/OpenAL32.lib ./deps/freealut/%{cfg.longname}/alut_static.lib ./deps/glfw/%{cfg.longname}/glfw3.lib ./deps/glad/%{cfg.longname}/glad.lib > nul 2>&1"
+		}
+	filter "system:linux"
+		postbuildcommands {
+			"ar -M < ./scriptsLinux/fat-lib-%{cfg.longname}.mri"
 	}
+
 
     filter {}

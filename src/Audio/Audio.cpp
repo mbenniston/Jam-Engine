@@ -10,11 +10,11 @@ namespace Jam
 	{
 		alutInitWithoutContext();
 		s_device = alcOpenDevice(NULL);
-		if (!s_device) throw std::exception("Could not open the default device");
+		if (!s_device) throw std::runtime_error("Could not open the default device");
 
 		s_context = alcCreateContext(s_device, NULL);
 		if (!s_context) {
-			throw std::exception("Could not create context");
+			throw std::runtime_error("Could not create context");
 		}
 		alcMakeContextCurrent(s_context);
 	}

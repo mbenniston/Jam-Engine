@@ -19,7 +19,7 @@ namespace Jam
 		void load(const Jam::File& file) {
 			m_id = alutCreateBufferFromFileImage(file.getData().data(), (ALsizei)file.getData().size());
 			if (m_id == 0) {
-				throw std::exception("Could not load wave file!");
+				throw std::runtime_error("Could not load wave file!");
 			}
 		}
 

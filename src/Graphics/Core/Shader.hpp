@@ -3,7 +3,7 @@
 #include <map>
 #include "vendor.h"
 
-#include "Assets/AssetLoader.h"
+#include "../../Assets/AssetLoader.h"
 
 namespace Jam
 {

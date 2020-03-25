@@ -25,7 +25,7 @@ namespace Jam
 	{
 		int res = PHYSFS_mount(path.c_str(), name.c_str(), true);
 		if (!res) {
-			throw std::exception("Could not mount archive");
+			throw std::runtime_error("Could not mount archive");
 		}
 
 		return Archive(name);
@@ -39,7 +39,7 @@ namespace Jam
 	{
 		PHYSFS_File* fileHandle = PHYSFS_openRead((m_name + "/" + fileName).c_str());
 		if (!fileHandle) {
-			throw std::exception("Could not find file");
+			throw std::runtime_error("Could not find file");
 		}
 		MISC_LINC();
 
@@ -53,7 +53,7 @@ namespace Jam
 	void ArchiveFile::close()
 	{
 		if (!PHYSFS_close(m_fileHandle)) {
-			throw std::exception("Cannot close file");
+			throw std::runtime_error("Cannot close file");
 		}
 		MISC_LDEC();
 		m_fileHandle = nullptr;
@@ -64,7 +64,7 @@ namespace Jam
 		std::ifstream str(filePath, std::ios::binary | std::ios::ate | std::ios::in);
 
 		if (!str) {
-			throw std::exception("Could not open file!");
+			throw std::runtime_error("Could not open file!");
 		}
 
 		std::streamsize size = str.tellg();
@@ -72,7 +72,7 @@ namespace Jam
 
 		m_data.resize(size);
 		if (!str.read(m_data.data(), size)) {
-			throw std::exception("Could not read file!");
+			throw std::runtime_error("Could not read file!");
 		}
 	}
 

@@ -1,0 +1,10 @@
+create ./bin/Debug/libjengine.a 
+addlib ./bin/Debug/libJam-Engine.a
+addlib ./deps/physfs/Debug/libphysfs.a
+addlib ./deps/openal-soft/Debug/libopenal.a
+addlib ./deps/freealut/Debug/src/libalut.a
+addlib ./deps/glfw/Debug/src/libglfw3.a
+addlib ./deps/glad/Debug/libglad.a
+addlib ./deps/fmt/Debug/libfmt.a
+save
+end

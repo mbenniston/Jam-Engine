@@ -19,14 +19,14 @@ void glad_cb(const char* name, void* funcptr, int len_args, ...) {
 void Jam::Window::open(int width, int height, const std::string& title)
 {
 	if(!glfwInit()) {
-		throw std::exception("Cannot initialize glfw!");
+		throw std::runtime_error("Cannot initialize glfw!");
 	}
 
 	//glfwSetErrorCallback(error_callback);
 
 	m_handle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (!m_handle) {
-		throw std::exception("Could not open window!");
+		throw std::runtime_error("Could not open window!");
 	}
 
 	glfwMakeContextCurrent(m_handle);

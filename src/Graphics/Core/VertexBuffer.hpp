@@ -1,7 +1,7 @@
 #pragma once
 
 #include "vendor.h"
-#include "misc.hpp"
+#include "../../misc.hpp"
 
 namespace Jam
 {

@@ -7,7 +7,7 @@ cd modules/openal-soft || exit
 
 mkdir -p build
 cd build || exit
-cmake .. || exit
+cmake .. -DLIBTYPE=STATIC || exit
 
 make -j4 config=debug || exit
 mkdir -p "../../../deps/openal-soft/Debug/" && cp "./" "../../../deps/openal-soft/Debug" -r || exit
