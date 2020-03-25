@@ -13,3 +13,9 @@ imgui.ini
 
 Makefile
 *.make
+include/AL
+include/fmt
+include/glm
+include/KHR
+include/Makefile.am
+include/json.hpp

@@ -27,4 +27,11 @@ pushd .
 call build_glad.bat
 popd 
 
+echo Copying required includes
+
+pushd .
+call copy_includes.bat
+popd 
+
+
 pause
