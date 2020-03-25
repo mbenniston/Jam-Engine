@@ -16,11 +16,11 @@ namespace Jam
         glDeleteTextures(1, &m_id);
     }
 
-    void Texture::loadFromFile(const std::string& filePath) {
+    void Texture::loadFromFile(const Jam::File& file) {
         glGenTextures(1, &m_id);
         m_type = GL_TEXTURE_2D;
 
-        unsigned char* data = stbi_load(filePath.c_str(), &m_width, &m_height, &m_channels, 0);
+        unsigned char* data = stbi_load_from_memory(file.getData().data(), file.getData().size(), &m_width, &m_height, &m_channels, 0);
         assert(data != nullptr);
 
         bind();
@@ -45,5 +45,6 @@ namespace Jam
 
 
         unbind();
+        stbi_image_free(data);
     }
 }

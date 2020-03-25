@@ -3,6 +3,8 @@
 
 #include "vendor.h"
 
+#include "../../Assets/AssetLoader.h"
+
 namespace Jam
 {
     class Texture
@@ -31,7 +33,7 @@ namespace Jam
         void unbind() const;
         void release();
 
-        void loadFromFile(const std::string& filePath);
+        void loadFromFile(const Jam::File& filePath);
 
     };
 }

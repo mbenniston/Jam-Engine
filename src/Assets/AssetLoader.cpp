@@ -7,12 +7,18 @@
 
 #include "misc.hpp"
 
+#include "../Gen/default_res.hpp"
+
 namespace Jam
 {
+	Archive DEFAULT_ASSETS;
+
 	void AssetLoader::init(const char* argv0)
 	{
 		PHYSFS_init(argv0);
 		MISC_LINC();
+
+		DEFAULT_ASSETS = LoadArchiveFromMemory(DEFAULT_RES_SRC, DEFAULT_RES_SRCLength, "default_res", "default_res.tar.gz");
 	}
 
 	void AssetLoader::deinit()
@@ -25,7 +31,19 @@ namespace Jam
 	{
 		int res = PHYSFS_mount(path.c_str(), name.c_str(), true);
 		if (!res) {
+			PLOG_INFO("{}", PHYSFS_getLastErrorCode());
 			throw std::runtime_error("Could not mount archive");
+		}
+
+		return Archive(name);
+	}
+
+	Archive AssetLoader::LoadArchiveFromMemory(void* buf, size_t len, const std::string& name, const std::string& path)
+	{
+		int res = PHYSFS_mountMemory(buf, len, NULL, path.c_str(), name.c_str(), true);
+		if (!res) {
+			PLOG_INFO("{}", PHYSFS_getLastErrorCode());
+			throw std::runtime_error("Could not mount memory archive");
 		}
 
 		return Archive(name);
@@ -50,6 +68,10 @@ namespace Jam
 	{
 	}
 
+	Archive::Archive() : m_name("")
+	{
+	}
+
 	void ArchiveFile::close()
 	{
 		if (!PHYSFS_close(m_fileHandle)) {
@@ -71,7 +93,7 @@ namespace Jam
 		str.seekg(0, std::ios::beg);
 
 		m_data.resize(size);
-		if (!str.read(m_data.data(), size)) {
+		if (!str.read((char*)m_data.data(), size)) {
 			throw std::runtime_error("Could not read file!");
 		}
 	}

@@ -7,7 +7,7 @@ struct PHYSFS_File;
 
 namespace Jam
 {
-	using byte_t = char;
+	using byte_t = unsigned char;
 
 	class File
 	{
@@ -51,8 +51,12 @@ namespace Jam
 
 		ArchiveFile openFile(const std::string& fileName);
 
+		Archive();
 		Archive(const std::string& name);
 	};
+
+
+	extern Archive DEFAULT_ASSETS;
 
 	class AssetLoader final
 	{
@@ -64,6 +68,7 @@ namespace Jam
 		static void deinit();
 
 		static Archive LoadArchive(const std::string& name, const std::string& path);
+		static Archive LoadArchiveFromMemory(void* buf, size_t len, const std::string& name, const std::string& path);
 
 		~AssetLoader();
 	};

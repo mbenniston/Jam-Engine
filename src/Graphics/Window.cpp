@@ -2,8 +2,7 @@
 #include "Window.hpp"
 #include <cassert>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "vendor.h"
 #include "PowerLogger.hpp"
 
 void error_callback(int error, const char* description)
