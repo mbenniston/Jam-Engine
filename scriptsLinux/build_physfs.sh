@@ -9,10 +9,10 @@ mkdir -p build
 cd build || exit
 cmake .. || exit
 
-make config=debug || exit
+make -j4 config=debug || exit
 mkdir -p "../../../deps/physfs/Debug/" && cp "./" "../../../deps/physfs/Release" -r || exit
 
-make config=release || exit
+make -j4 config=release || exit
 mkdir -p "../../../deps/physfs/Release/" && cp "./" "../../../deps/physfs/Debug" -r || exit
 
 # /Jam-Engine

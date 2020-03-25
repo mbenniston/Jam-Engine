@@ -9,10 +9,10 @@ mkdir -p build
 cd build || exit
 cmake .. || exit
 
-make config=debug || exit
+make -j4 config=debug || exit
 mkdir -p "../../../deps/glfw/Debug/" && cp "src/" "../../../deps/glfw/Debug/" -r || exit
 
-make config=release || exit
+make -j4 config=release || exit
 mkdir -p "../../../deps/glfw/Release/" && cp "src/" "../../../deps/glfw/Release/" -r || exit
 
 # /Jam-Engine

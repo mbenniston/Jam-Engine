@@ -9,11 +9,11 @@ mkdir -p build
 cd build || exit
 cmake .. || exit
 
-make config=debug || exit
-mkdir -p "../../../deps/openal-soft/Debug/" && cp "./" "../../../deps/openal-soft/" -r || exit
+make -j4 config=debug || exit
+mkdir -p "../../../deps/openal-soft/Debug/" && cp "./" "../../../deps/openal-soft/Debug" -r || exit
 
-make config=release || exit
-mkdir -p "../../../deps/openal-soft/Release/" && cp "./" "../../../deps/openal-soft/" -r || exit
+make -j4 config=release || exit
+mkdir -p "../../../deps/openal-soft/Release/" && cp "./" "../../../deps/openal-soft/Release" -r || exit
 
 # /Jam-Engine
 cd ./../../../ || exit
