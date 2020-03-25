@@ -19,3 +19,14 @@ echo "Re-adding modules"
 git submodule update --init --recursive
 
 cd ./../
+
+echo Removing generated includes
+cd include
+rm AL -r
+rm fmt -r
+rm glm -r
+rm KHR  -r
+rm Makefile.am
+rm json.hpp
+
+cd ./../

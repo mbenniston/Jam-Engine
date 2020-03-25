@@ -25,3 +25,7 @@ popd
 pushd .
 ./build_alut.sh
 popd 
+
+pushd .
+./copy_includes.sh
+popd 
