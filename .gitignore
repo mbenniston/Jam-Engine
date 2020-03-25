@@ -10,3 +10,6 @@ deps/**
 obj/**
 
 imgui.ini
+
+Makefile
+*.make
