@@ -35,16 +35,24 @@ void Jam::Window::open(int width, int height, const std::string& title)
 	glad_set_pre_callback(glad_cb);
 	glad_set_post_callback(glad_cb);
 #endif
+
+	m_renderer = new UIRenderer();
+	setPixelSize((glm::vec2)getSize());
 }
 
 void Jam::Window::update()
 {
+	m_renderer->renderUI(this);
+
 	glfwSwapBuffers(m_handle);
 	glfwPollEvents();
 }
 
 void Jam::Window::close()
 {
+	m_renderer->release();
+	delete m_renderer;
+
 	glfwTerminate();
 	m_handle = nullptr;
 }

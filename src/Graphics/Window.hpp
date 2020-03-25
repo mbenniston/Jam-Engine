@@ -4,6 +4,7 @@
 #include "vendor.h"
 
 #include "UI/Widget.hpp"
+#include "UI/UIRenderer.hpp"
 
 struct GLFWwindow;
 
@@ -13,6 +14,7 @@ namespace Jam
 	{
 	private:
 		GLFWwindow* m_handle;
+		UIRenderer* m_renderer;
 
 	public:
 

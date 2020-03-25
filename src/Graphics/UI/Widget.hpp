@@ -13,6 +13,10 @@ namespace Jam
 		glm::vec2 m_localPos, m_pixelPos, m_localSize, m_pixelSize;
 	public:
 
+		glm::mat4 getTransform() const {
+			return glm::translate<float>(glm::mat4(1.0f), glm::vec3(m_pixelPos, 0)) * glm::scale<float>(glm::mat4(1.0f), glm::vec3(m_pixelSize, 1.0f));
+		}
+
 		void setParent(Widget* p) {
 			m_parent = p;
 		}
@@ -203,4 +207,7 @@ namespace Jam
 			setPixelSize(pSize);
 		}
 	};
+
+	using FramePtr = std::shared_ptr<Frame>;
+
 }
