@@ -2,8 +2,11 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include <functional>
 
 #include "vendor.h"
+#include "Events.hpp"
+#include "../../PowerLogger.hpp"
 
 namespace Jam
 {
@@ -58,6 +61,10 @@ namespace Jam
 			return m_pixelSize;
 		}
 
+		virtual void handleEvent(std::shared_ptr<Event> event)
+		{
+		}
+
 		Widget() : m_parent(nullptr), m_localPos(0,0), m_pixelPos(0,0), m_localSize(0,0), m_pixelSize(0,0) {}
 		virtual ~Widget() = default;
 	};
@@ -70,6 +77,16 @@ namespace Jam
 		std::vector<WidgetPtr> m_children;
 
 	public:
+
+		virtual void handleEvent(std::shared_ptr<Event> event) override
+		{
+			for(WidgetPtr child : m_children) {
+				if(!event->handled){
+					child->handleEvent(event);
+				}
+			}
+		}
+
 		virtual void addChild(WidgetPtr ptr) {
 			ptr->setParent(this);
 			m_children.push_back(ptr);
@@ -116,7 +133,7 @@ namespace Jam
 	class HChronoLayout : public Layout 
 	{
 	private:
-		unsigned int sizeCnt = 0;
+		float sizeCnt = 0;
 		glm::vec2 pixelsPerUnit;
 	public:
 		virtual void start() override { 
@@ -145,7 +162,7 @@ namespace Jam
 	class VChronoLayout : public Layout 
 	{
 	private:
-		unsigned int sizeCnt = 0;
+		float sizeCnt = 0;
 		glm::vec2 pixelsPerUnit;
 	public:
 		virtual void start() override { 
@@ -180,13 +197,22 @@ namespace Jam
 	class GridLayout : public Layout
 	{
 
-	};*/
+	};
+	*/
 
 	class Frame : public Container
 	{
 	private:
 		std::shared_ptr<Layout> m_layout;
 		bool m_visible = true;
+
+	public:
+		virtual void handleEvent(std::shared_ptr<Event> event) override
+		{
+			if(m_visible) {
+				Container::handleEvent(event);
+			}
+		}
 
 		void refreshPixelPositions() {
 			if (!m_layout) return;
@@ -206,7 +232,6 @@ namespace Jam
 			m_layout->end();
 		}
 
-	public:
 
 		virtual void addChild(WidgetPtr child) override {
 			Container::addChild(child);
@@ -238,6 +263,13 @@ namespace Jam
 		//void setCatchEvents(bool);
 		//bool catchingEvents() const;
 
+		Frame() {
+			setLocalPos({0,0});
+			setLocalSize({1,1});
+			setPixelPos({0,0});
+			setPixelSize({0,0});
+		}
+
 		Frame(glm::vec2 lPos, glm::vec2 lSize, glm::vec2 pPos, glm::vec2 pSize) {
 			setLocalPos(lPos);
 			setLocalSize(lSize);
@@ -247,5 +279,28 @@ namespace Jam
 	};
 
 	using FramePtr = std::shared_ptr<Frame>;
+
+	class ButtonWidget : public Widget {
+	private:
+		std::function<void()> m_cb;
+
+	public:
+
+		void setCallback(std::function<void()> cb) {
+			m_cb = cb;
+		}
+
+		virtual void handleEvent(std::shared_ptr<Event> event) override
+		{
+			auto btn = std::dynamic_pointer_cast<ButtonPressEvent>(event);
+			if(btn) {
+				if(btn->button == 0 && btn->x > m_pixelPos.x && btn->x < m_pixelPos.x + m_pixelSize.x && 
+					btn->y > m_pixelPos.y && btn->y < m_pixelPos.y + m_pixelSize.y) {
+						m_cb();
+						event->handled = true;
+					}
+			}
+		}
+	};
 
 }

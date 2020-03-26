@@ -19,3 +19,11 @@ include/glm
 include/KHR
 include/Makefile.am
 include/json.hpp
+
+src/Gen/*.hpp
+src/Gen/*.cpp
+
+packer/packer
+packer/Makefile
+packer/Debug
+packer/Release

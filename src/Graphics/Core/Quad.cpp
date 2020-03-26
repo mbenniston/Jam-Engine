@@ -50,6 +50,7 @@ namespace Jam
     void Quad::release()
     {
         m_vbo.release();
+        m_tbo.release();
         Mesh::release();
     }
 

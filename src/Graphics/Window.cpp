@@ -4,10 +4,32 @@
 
 #include "vendor.h"
 #include "PowerLogger.hpp"
+#include "UI/Events.hpp"
+
+static void mousebtn_cb(GLFWwindow* handle, int btn, int action, int mods) 
+{
+	//generate event and dispatch to widgets only if within the bounds of the widget
+	Jam::Window* win = (Jam::Window*)glfwGetWindowUserPointer(handle); 
+	if(action == GLFW_PRESS) {
+		auto event = std::make_shared<Jam::ButtonPressEvent>();
+		event->button = btn;
+		event->handled = false;
+		glfwGetCursorPos(handle, &event->x, &event->y);
+		win->handleEvent(event);
+	}
+
+}
+
+static void resize_cb(GLFWwindow* handle, int w,int h)
+{
+	Jam::Window* win = (Jam::Window*)glfwGetWindowUserPointer(handle); 
+	win->setPixelSize(glm::vec2{w,h});
+	win->refreshPixelPositions();
+}
 
 void error_callback(int error, const char* description)
 {
-	//PLOG_ERROR("Error: {}", description);
+	PLOG_ERROR("Error: {}", description);
 }
 
 void glad_cb(const char* name, void* funcptr, int len_args, ...) {
@@ -35,6 +57,10 @@ void Jam::Window::open(int width, int height, const std::string& title)
 	glad_set_pre_callback(glad_cb);
 	glad_set_post_callback(glad_cb);
 #endif
+
+	glfwSetWindowUserPointer(m_handle, this);
+	glfwSetFramebufferSizeCallback(m_handle, resize_cb);
+	glfwSetMouseButtonCallback(m_handle, mousebtn_cb);
 
 	m_renderer = new UIRenderer();
 	setPixelSize((glm::vec2)getSize());
@@ -83,7 +109,7 @@ bool Jam::Window::shouldClose() const
 	return glfwWindowShouldClose(m_handle);
 }
 
-Jam::Window::Window() : Jam::Frame({ 0,0 }, { 0,0 }, { 0,0 }, { 0,0}), m_handle(nullptr)
+Jam::Window::Window() : Jam::Frame({ 0,0 }, { 0,0 }, { 0,0 }, { 0,0 }), m_handle(nullptr)
 {
 }
 

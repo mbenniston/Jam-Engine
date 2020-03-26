@@ -10,7 +10,7 @@ namespace Jam
     class Texture
     {
     private:
-        GLuint m_id;
+        GLuint m_id = 0;
         GLenum m_type;
 
         int m_width, m_height, m_channels;

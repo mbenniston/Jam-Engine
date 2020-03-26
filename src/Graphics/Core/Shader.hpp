@@ -10,7 +10,7 @@ namespace Jam
     class Shader
     {
     private:
-        GLuint m_program;
+        GLuint m_program = 0;
         std::map<std::string, GLint> m_uniforms;
 
     public:

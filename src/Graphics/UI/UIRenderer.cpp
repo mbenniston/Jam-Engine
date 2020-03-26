@@ -13,6 +13,8 @@ namespace Jam
     }
 
     void UIRenderer::renderFrame(Frame* frame) {
+        if(!frame->visible()) return;
+
         for(WidgetPtr child : frame->getChildren()) {
             FramePtr fp = std::dynamic_pointer_cast<Frame>(child);
             if(fp) {
@@ -51,5 +53,6 @@ namespace Jam
     void UIRenderer::release() {
         m_shader.release();
         m_quad.release();
+        m_texture.release();
     }
 }

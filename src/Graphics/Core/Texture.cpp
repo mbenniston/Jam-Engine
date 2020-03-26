@@ -2,6 +2,8 @@
 #include "Texture.hpp"
 #include <iostream>
 
+#include "../../misc.hpp"
+
 namespace Jam
 {
     void Texture::bind() const {
@@ -13,10 +15,13 @@ namespace Jam
     }
 
     void Texture::release() {
+        MISC_CHECK_REM_ID(m_id);
         glDeleteTextures(1, &m_id);
+        m_id = 0;
     }
 
     void Texture::loadFromFile(const Jam::File& file) {
+        MISC_CHECK_GEN_ID(m_id);
         glGenTextures(1, &m_id);
         m_type = GL_TEXTURE_2D;
 

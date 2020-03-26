@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "PowerLogger.hpp"
+#include "misc.hpp"
 
 namespace Jam
 {
@@ -51,7 +52,9 @@ namespace Jam
     }
 
     void Shader::release() {
+        MISC_CHECK_REM_ID(m_program);
         glDeleteProgram(m_program);
+        m_program = 0;
     }
 
     void Shader::loadFromFile(const File& vPath, const File& fPath) {
@@ -61,6 +64,7 @@ namespace Jam
     }
 
     void Shader::loadFromString(const std::string& vSource, const std::string& fSource) {
+        MISC_CHECK_GEN_ID(m_program);
         m_program = glCreateProgram();
         GLuint vShader = loadShader(vSource, GL_VERTEX_SHADER), fShader = loadShader(fSource, GL_FRAGMENT_SHADER);
 
