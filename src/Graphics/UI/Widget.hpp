@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <iostream>
 
 #include "vendor.h"
 
@@ -106,7 +107,7 @@ namespace Jam
 		virtual void start() {}
 		virtual void end() {}
 
-		virtual glm::vec2 calcPos(glm::vec2 lPos) = 0;
+		virtual glm::vec2 calcPos(glm::vec2 lPos, glm::vec2 lSize) = 0;
 		virtual glm::vec2 calcSize(glm::vec2 lSize) = 0;
 
 		virtual ~Layout() = default;
@@ -115,10 +116,11 @@ namespace Jam
 	class HChronoLayout : public Layout 
 	{
 	private:
-		unsigned int counter = 0;
+		unsigned int sizeCnt = 0;
 		glm::vec2 pixelsPerUnit;
 	public:
 		virtual void start() override { 
+			sizeCnt = 0;
 			glm::vec2 totalSize = { 0,0 };
 			for (const auto& child : m_parent->getChildren()) {
 				totalSize += child->getLocalSize();
@@ -129,12 +131,43 @@ namespace Jam
 		virtual void end() {
 		}
 
-		virtual glm::vec2 calcPos(glm::vec2 lPos) { 
-			return glm::vec2(pixelsPerUnit.x * (float)(counter++), 0);
+		virtual glm::vec2 calcPos(glm::vec2 lPos, glm::vec2 lSize) { 
+			glm::vec2 out(pixelsPerUnit.x * (float)sizeCnt, 0);
+			sizeCnt += lSize.x;
+			return m_parent->getPixelPos() + out;
 		}
 
 		virtual glm::vec2 calcSize(glm::vec2 lSize) {
-			return lSize * pixelsPerUnit;
+			return glm::vec2(lSize.x, 1) * glm::vec2(pixelsPerUnit.x, m_parent->getPixelSize().y);
+		}
+	};
+
+	class VChronoLayout : public Layout 
+	{
+	private:
+		unsigned int sizeCnt = 0;
+		glm::vec2 pixelsPerUnit;
+	public:
+		virtual void start() override { 
+			sizeCnt = 0;
+			glm::vec2 totalSize = { 0,0 };
+			for (const auto& child : m_parent->getChildren()) {
+				totalSize += child->getLocalSize();
+			}
+			pixelsPerUnit  = { m_parent->getPixelSize().x / totalSize.x, m_parent->getPixelSize().y / totalSize.y };
+		}
+		
+		virtual void end() {
+		}
+
+		virtual glm::vec2 calcPos(glm::vec2 lPos, glm::vec2 lSize) { 
+			glm::vec2 out(0, pixelsPerUnit.y * (float)(sizeCnt));
+			sizeCnt += lSize.y;
+			return m_parent->getPixelPos() + out;
+		}
+
+		virtual glm::vec2 calcSize(glm::vec2 lSize) {
+			return glm::vec2(1,lSize.y) * glm::vec2(m_parent->getPixelSize().x, pixelsPerUnit.y);
 		}
 	};
 
@@ -161,8 +194,13 @@ namespace Jam
 			m_layout->start();
 
 			for (auto& child : m_children) {
-				child->setPixelPos(m_layout->calcPos(child->getLocalPos()));
-				child->setPixelSize(m_layout->calcPos(child->getLocalSize()));
+				child->setPixelPos(m_layout->calcPos(child->getLocalPos(), child->getLocalSize()));
+				child->setPixelSize(m_layout->calcSize(child->getLocalSize()));
+
+				auto fp = std::dynamic_pointer_cast<Frame>(child);
+				if(fp) {
+					fp->refreshPixelPositions();
+				}
 			}
 
 			m_layout->end();

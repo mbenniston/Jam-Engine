@@ -25,6 +25,8 @@ namespace Jam
 
         UIRenderer();
         void release();
+        ~UIRenderer() = default;
+
     };
 
 
