@@ -12,10 +12,15 @@ namespace Jam
     private:
         GLuint m_program = 0;
         std::map<std::string, GLint> m_uniforms;
+        std::map<GLenum, std::map<std::string, GLuint>> m_subroutines;
 
     public:
 
         GLint getUniformLocation(const std::string& name);
+        GLuint getSubroutineLocation(GLenum shaderType, const std::string& name);
+
+        //all subroutines must be set at once for one shader type
+        void loadSubroutines(GLenum shaderType, const std::vector<std::string>& names);
 
         void loadUniform(const std::string& name, int);
         void loadUniform(const std::string& name, float);

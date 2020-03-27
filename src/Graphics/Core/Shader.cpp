@@ -125,4 +125,27 @@ namespace Jam
         //CHECK: Overhead of search for uniform
     }
 
+    void Shader::loadSubroutines(GLenum shaderType, const std::vector<std::string>& names)
+    {
+        std::vector<GLuint> ids;
+        ids.reserve(names.size());
+
+        for(const auto& name : names) {
+            ids.push_back(getSubroutineLocation(shaderType, name));
+        } 
+        glUniformSubroutinesuiv(shaderType, ids.size(), ids.data());
+    }
+
+    GLuint Shader::getSubroutineLocation(GLenum shaderType, const std::string& name) {
+        GLuint id = glGetSubroutineIndex(m_program, shaderType, name.c_str());
+
+        if(id != 0) {
+            m_subroutines[shaderType][name] = id;
+        } else {
+            PLOG_ERROR("Cannot find subroutine with name: {}", name);
+        }
+
+        return id;
+    }
+
 }
