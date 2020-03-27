@@ -303,4 +303,28 @@ namespace Jam
 		}
 	};
 
+	class LabelWidget : public Widget
+	{
+	private:
+		std::string m_text;
+		glm::vec3 m_color;
+	public:
+		void setText(const std::string& t) {
+			m_text = t;
+		}
+
+		const std::string& getText() {
+			return m_text;
+		}
+
+		void setTextColor(const glm::vec3& color) {
+			m_color = color;
+		}
+
+		glm::vec3 getTextColor() const {
+			return m_color;
+		}
+		
+	};
+
 }

@@ -30,6 +30,7 @@ namespace Jam
         }
 
         void bind() const;
+        void bind(int) const;
         void unbind() const;
         void release();
 

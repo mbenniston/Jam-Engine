@@ -6,6 +6,8 @@
 #include "../Core/Camera2D.hpp"
 #include "../Core/Texture.hpp"
 
+#include "../Font/Font8.hpp"
+
 namespace Jam
 {
     class UIRenderer final
@@ -15,6 +17,7 @@ namespace Jam
         Quad m_quad;
         Camera2D m_cam;
         Texture m_texture;
+        Font8 m_font;
 
         void renderWidget(WidgetPtr widget);
         void renderFrame(Frame* frame);

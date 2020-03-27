@@ -7,6 +7,11 @@
 namespace Jam
 {
     void Texture::bind() const {
+        bind(0);
+    }
+
+    void Texture::bind(int textureUnit) const {
+        glActiveTexture(GL_TEXTURE0 + textureUnit);
         glBindTexture(m_type, m_id);
     }
 

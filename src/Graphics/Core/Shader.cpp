@@ -139,7 +139,7 @@ namespace Jam
     GLuint Shader::getSubroutineLocation(GLenum shaderType, const std::string& name) {
         GLuint id = glGetSubroutineIndex(m_program, shaderType, name.c_str());
 
-        if(id != 0) {
+        if(id != GL_INVALID_INDEX) {
             m_subroutines[shaderType][name] = id;
         } else {
             PLOG_ERROR("Cannot find subroutine with name: {}", name);
