@@ -52,4 +52,23 @@ namespace Jam
         unbind();
         stbi_image_free(data);
     }
+
+    void Texture::loadFromArray(void* data, size_t width, size_t height, GLenum internalFormat, GLenum format, GLenum dataType)
+    {
+        MISC_CHECK_GEN_ID(m_id);
+        glGenTextures(1, &m_id);
+        m_type = GL_TEXTURE_2D;
+        m_width = width;
+        m_height = height;
+        bind();
+        glTexImage2D(m_type, 0, internalFormat, width, height, 0, format, dataType, data);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+        unbind();
+    }
 }

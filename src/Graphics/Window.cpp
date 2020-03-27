@@ -53,10 +53,10 @@ void Jam::Window::open(int width, int height, const std::string& title)
 	glfwMakeContextCurrent(m_handle);
 
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-#ifdef GLAD_DEBUG
-	glad_set_pre_callback(glad_cb);
-	glad_set_post_callback(glad_cb);
-#endif
+// #ifdef GLAD_DEBUG
+	// glad_set_pre_callback(glad_cb);
+	// glad_set_post_callback(glad_cb);
+// #endif
 
 	glfwSetWindowUserPointer(m_handle, this);
 	glfwSetFramebufferSizeCallback(m_handle, resize_cb);

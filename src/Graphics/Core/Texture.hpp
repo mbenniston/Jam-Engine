@@ -34,6 +34,7 @@ namespace Jam
         void release();
 
         void loadFromFile(const Jam::File& filePath);
+        void loadFromArray(void* data, size_t width, size_t height, GLenum internalFormat, GLenum format, GLenum dataType);
 
     };
 }
