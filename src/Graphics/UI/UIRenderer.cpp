@@ -11,8 +11,10 @@ namespace Jam
         m_shader.loadUniform("u_m", widget->getTransform());
         m_quad.drawUnbound();
 
+        //TODO: ALL of this should be changed as it is in-efficient and ugly, replace with freetype / proper bitmaps
         auto text = std::dynamic_pointer_cast<LabelWidget>(widget);
         if(text) {
+            //draw text
             m_shader.loadSubroutines(GL_VERTEX_SHADER, { "TexAtlasMethod" });
             m_shader.loadSubroutines(GL_FRAGMENT_SHADER, { "GrayScaleSample" });
             m_shader.loadUniform("u_color", text->getTextColor());

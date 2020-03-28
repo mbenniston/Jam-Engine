@@ -32,6 +32,9 @@ namespace Jam
 
 		bool shouldClose() const;
 
+		glm::vec2 getMousePosition() const;
+		bool getMouseButton(int btn) const;
+
 		Window();
 		Window(int width, int height, const std::string& title);
 		~Window();

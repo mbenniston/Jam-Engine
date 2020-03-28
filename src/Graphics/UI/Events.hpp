@@ -14,4 +14,11 @@ namespace Jam
         double x, y;
         virtual ~ButtonPressEvent() = default;
     };
+
+    class KeyPressEvent : public Event {
+    public:
+        int key;
+        double x, y;
+        virtual ~KeyPressEvent() = default;
+    };
 }

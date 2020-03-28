@@ -3,7 +3,7 @@
 
 #include "PowerLogger.hpp"
 
-static unsigned long long counter = 0;
+static signed long long counter = 0;
 
 void LeakChecker::inc()
 {

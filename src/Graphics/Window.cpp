@@ -6,6 +6,19 @@
 #include "PowerLogger.hpp"
 #include "UI/Events.hpp"
 
+
+static void keypress_cb(GLFWwindow* handle, int key, int scancode, int action, int mods)
+{
+	Jam::Window* win = (Jam::Window*)glfwGetWindowUserPointer(handle); 
+	if(action == GLFW_PRESS) {
+		auto event = std::make_shared<Jam::KeyPressEvent>();
+		event->key = key;
+		event->handled = false;
+		glfwGetCursorPos(handle, &event->x, &event->y);
+		win->handleEvent(event);
+	}
+}
+
 static void mousebtn_cb(GLFWwindow* handle, int btn, int action, int mods) 
 {
 	//generate event and dispatch to widgets only if within the bounds of the widget
@@ -17,7 +30,6 @@ static void mousebtn_cb(GLFWwindow* handle, int btn, int action, int mods)
 		glfwGetCursorPos(handle, &event->x, &event->y);
 		win->handleEvent(event);
 	}
-
 }
 
 static void resize_cb(GLFWwindow* handle, int w,int h)
@@ -61,6 +73,7 @@ void Jam::Window::open(int width, int height, const std::string& title)
 	glfwSetWindowUserPointer(m_handle, this);
 	glfwSetFramebufferSizeCallback(m_handle, resize_cb);
 	glfwSetMouseButtonCallback(m_handle, mousebtn_cb);
+	glfwSetKeyCallback(m_handle, keypress_cb);
 
 	m_renderer = new UIRenderer();
 	setPixelSize((glm::vec2)getSize());
@@ -124,4 +137,16 @@ Jam::Window::~Window()
 		close();
 		m_handle = nullptr;
 	}
+}
+
+glm::vec2 Jam::Window::getMousePosition() const
+{
+	double x, y;
+	glfwGetCursorPos(m_handle, &x, &y);
+	return glm::vec2((float)x, (float)y);
+}
+
+bool Jam::Window::getMouseButton(int btn) const 
+{
+	return glfwGetMouseButton(m_handle, btn) == GLFW_PRESS;
 }

@@ -17,6 +17,11 @@ namespace Jam
 		glm::vec2 m_localPos, m_pixelPos, m_localSize, m_pixelSize;
 	public:
 
+		bool isMouseOver(float mx, float my) const {
+			return mx > m_pixelPos.x && mx < m_pixelPos.x + m_pixelSize.x &&
+					my > m_pixelPos.y && my < m_pixelPos.y + m_pixelSize.y; 
+		}
+
 		glm::mat4 getTransform() const {
 			return glm::translate<float>(glm::mat4(1.0f), glm::vec3(m_pixelPos, 0)) * glm::scale<float>(glm::mat4(1.0f), glm::vec3(m_pixelSize, 1.0f));
 		}
@@ -108,6 +113,16 @@ namespace Jam
 			return m_children;
 		}
 
+		virtual bool isMouseOverChildren(float mx, float my) const{
+			for(const auto& child : m_children) {
+				if(child->isMouseOver(mx, my)){
+					return true;
+				}
+			}
+			return false;
+		}
+
+
 		Container() {}
 		~Container() = default;
 	};
@@ -117,6 +132,7 @@ namespace Jam
 	protected:
 		Container* m_parent;
 	public:
+
 		void setParent(Container* p) {
 			m_parent = p;
 		}
