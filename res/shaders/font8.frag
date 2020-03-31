@@ -11,4 +11,5 @@ void main()
 {
     float r = texture(texture0, v_texCoord).r;
     FragColor = vec4(u_color * r, r);
+    if(r < 0.5f) discard;
 }
