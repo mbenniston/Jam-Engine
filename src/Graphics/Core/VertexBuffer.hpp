@@ -20,7 +20,9 @@ namespace Jam
 		void gen();
 		void release();
 
-		void store(const void* const data, size_t length);
+		void store(const void* const data, size_t length, GLenum usage = GL_STATIC_DRAW);
+		void reserve(size_t length, GLenum usage = GL_STATIC_DRAW);
+		void fill(const void* const data, size_t length);
 
 		VertexBuffer() = default;
 		virtual ~VertexBuffer() = default;

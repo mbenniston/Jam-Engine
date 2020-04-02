@@ -8,5 +8,5 @@ in int v_texUnit;
 
 void main()
 {
-    FragColor = vec4(color, 1.0f);
+    FragColor = vec4(v_color, 1.0f);
 }

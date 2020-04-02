@@ -47,7 +47,7 @@ namespace Jam
         glEnableVertexAttribArray(2);
         glEnableVertexAttribArray(3);
 
-        glDrawArrays(GL_TRIANGLES, 0, m_numVerts);
+        glDrawArrays(GL_TRIANGLES, 0, m_vertices.size());
 
         glDisableVertexAttribArray(3);
         glDisableVertexAttribArray(2);
@@ -57,7 +57,7 @@ namespace Jam
         m_batchShader.dispose();
     }
 
-    BatchRenderer2D::BatchRenderer2D(unsigned int initialNumVerts) : m_maxVerts(initialNumVerts), m_numVerts(0)
+    BatchRenderer2D::BatchRenderer2D(unsigned int initialNumVerts, bool staticBatch) : m_maxVerts(initialNumVerts), m_staticBatch(staticBatch)
     {
         m_vertexArray.gen();
         m_vertexArray.bind();
@@ -65,7 +65,7 @@ namespace Jam
         m_vertexBuffer.gen();
         m_vertexBuffer.bind();
         m_vertexBuffer.setTarget(GL_ARRAY_BUFFER);
-        m_vertexBuffer.reserve(initialNumVerts * sizeof(BatchRenderer2D::Vertex), GL_DYNAMIC_DRAW);
+        m_vertexBuffer.reserve(initialNumVerts * sizeof(BatchRenderer2D::Vertex), staticBatch ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
 
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(BatchRenderer2D::Vertex, position));
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(BatchRenderer2D::Vertex, texCoord));

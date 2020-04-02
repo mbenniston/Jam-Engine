@@ -24,7 +24,18 @@ void Jam::VertexBuffer::release()
 	m_id = 0;
 }
 
-void Jam::VertexBuffer::store(const void* const data, size_t length)
+void Jam::VertexBuffer::store(const void* const data, size_t length, GLenum usage)
 {
-	glBufferData(m_target, length, data, GL_STATIC_DRAW);
+	glBufferData(m_target, length, data, usage);
 }
+
+void Jam::VertexBuffer::reserve(size_t length, GLenum usage)
+{
+	glBufferData(m_target, length, nullptr, usage);
+}
+
+void Jam::VertexBuffer::fill(const void* const data, size_t length)
+{
+	glBufferSubData(m_target, 0, length, data);
+}
+

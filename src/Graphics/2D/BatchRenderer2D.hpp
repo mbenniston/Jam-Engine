@@ -20,9 +20,10 @@ namespace Jam
         Shader m_batchShader;
         VertexArray m_vertexArray;
         VertexBuffer m_vertexBuffer;
-        unsigned int m_maxVerts, m_numVerts = 0;
+        unsigned int m_maxVerts;
         std::vector<Vertex> m_vertices;
         bool m_dirtyBuffer = false;
+        bool m_staticBatch = false;
 
     public:
 
@@ -40,7 +41,7 @@ namespace Jam
 
         void release();
 
-        BatchRenderer2D(unsigned int initialNumVerts);
+        BatchRenderer2D(unsigned int initialNumVerts, bool staticBatch = false);
         virtual ~BatchRenderer2D();
     };
 
