@@ -84,7 +84,6 @@ namespace Jam
             GLint id = glGetUniformLocation(m_program, name.c_str());
             if (id < 0) {
                 PLOG_ERROR("Could not get uniform with name: {}", name);
-                return -1;
             }
 
             m_uniforms[name] = id;

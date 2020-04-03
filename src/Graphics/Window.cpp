@@ -44,8 +44,13 @@ void error_callback(int error, const char* description)
 	PLOG_ERROR("Error: {}", description);
 }
 
-void glad_cb(const char* name, void* funcptr, int len_args, ...) {
 
+void glad_cb(const char* name, void* funcptr, int len_args, ...) {
+	// static void* lastFuncPointer = nullptr;
+	// if(funcptr != lastFuncPointer) {
+	// 	PLOG_ERROR("GL Error in: {}", name);
+	// 	lastFuncPointer = funcptr;
+	// }
 }
 
 
@@ -57,6 +62,9 @@ void Jam::Window::open(int width, int height, const std::string& title)
 
 	//glfwSetErrorCallback(error_callback);
 
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+
 	m_handle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (!m_handle) {
 		throw std::runtime_error("Could not open window!");
@@ -65,10 +73,10 @@ void Jam::Window::open(int width, int height, const std::string& title)
 	glfwMakeContextCurrent(m_handle);
 
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-// #ifdef GLAD_DEBUG
-	// glad_set_pre_callback(glad_cb);
-	// glad_set_post_callback(glad_cb);
-// #endif
+#ifdef GLAD_DEBUG
+	glad_set_pre_callback(glad_cb);
+	glad_set_post_callback(glad_cb);
+#endif
 
 	glfwSetWindowUserPointer(m_handle, this);
 	glfwSetFramebufferSizeCallback(m_handle, resize_cb);

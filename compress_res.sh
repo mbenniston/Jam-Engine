@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cd ../res/
+pushd .
+cd res
 rm ../obj/default_res.zip
 zip -r ../obj/default_res.zip *
 
@@ -12,3 +13,4 @@ popd
 
 cd ..
 ./packer/packer obj/default_res.zip src/Gen/default_res DEFAULT_RES_SRC
+popd 

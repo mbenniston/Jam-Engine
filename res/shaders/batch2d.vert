@@ -3,13 +3,13 @@
 layout(location = 0) in vec2 position;
 layout(location = 1) in vec2 texCoord;
 layout(location = 2) in vec3 color;
-layout(location = 3) in int texUnit;
+layout(location = 3) in float texUnit;
 
 uniform mat4 u_vp;
 
 out vec2 v_texCoord;
 out vec3 v_color;
-out int v_texUnit;
+out float v_texUnit;
 
 void main()
 {

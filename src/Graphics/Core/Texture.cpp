@@ -32,6 +32,9 @@ namespace Jam
 
         unsigned char* data = stbi_load_from_memory(file.getData().data(), file.getData().size(), &m_width, &m_height, &m_channels, 0);
         assert(data != nullptr);
+        if(!data) {
+            PLOG_ERROR("could not load texture from file");
+        }
 
         bind();
         switch (m_channels)

@@ -68,8 +68,7 @@ project "Jam-Engine"
 		}
 	filter "system:linux"
 		postbuildcommands {
-			"ar -M < ./scriptsLinux/fat-lib-%{cfg.longname}.mri"
-	}
-
+			"ar -M < ./scriptsLinux/fat-lib-%{cfg.longname}.mri",
+		}
 
     filter {}
