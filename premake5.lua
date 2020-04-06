@@ -49,7 +49,11 @@ project "Jam-Engine"
 	-- includedirs { "./src/",  "./modules/glm", "./modules/imgui", "./modules/", "./modules/physfs/src/", "./modules/fmt/include/", "./modules/rlutil/", "./modules/openal-soft/include/", "./modules/openal-soft/include/AL/", "./modules/freealut/include/", "./modules/glfw/include/",  "./modules/glad/%{cfg.longname}/include" }
 	-- any other includes that are not in the include directory are private includes and should not be used by anything else
 	includedirs { "./src/", "./include", "./modules/imgui", "./modules/glfw/include/", "./modules/physfs/src/", "./modules/font8x8" }
-	
+
+	filter {"files:src/Gen/*.cpp"}
+		flags {"NoPCH"}
+	filter {}
+
 	libdirs {"deps/glfw/%{cfg.longname}/", "deps/physfs/%{cfg.longname}/", "deps/fmt/%{cfg.longname}/", "deps/openal-soft/%{cfg.longname}/", "deps/freealut/%{cfg.longname}/", "deps/glfw/%{cfg.longname}/", "deps/glad/%{cfg.longname}/" }
 	
 	links { "physfs-static.lib", "common.lib", "ex-common.lib", "OpenAL32.lib", "alut_static.lib", "glfw3.lib", "glad.lib" }
