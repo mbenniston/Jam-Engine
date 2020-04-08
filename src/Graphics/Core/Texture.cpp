@@ -6,7 +6,34 @@
 
 namespace Jam
 {
-    void Texture::bind() const {
+	void Texture::setParameter(GLenum penum, GLint value)
+	{
+        glTexParameteri(m_type, penum, value);
+	}
+
+    void Texture::setParameter(GLenum penum, GLfloat value)
+    {
+        glTexParameterf(m_type, penum, value);
+    }
+
+    void Texture::setMinFilter(GLenum minFilter)
+    {
+        m_minFilter = minFilter;
+        setParameter(GL_TEXTURE_MIN_FILTER, (GLint)minFilter);
+    }
+
+    void Texture::setMagFilter(GLenum magFilter)
+    {
+        m_magFilter = magFilter;
+        setParameter(GL_TEXTURE_MAG_FILTER, (GLint)magFilter);
+    }
+
+    void Texture::generateMipmaps()
+    {
+        glGenerateMipmap(m_type);
+    }
+
+	void Texture::bind() const {
         bind(0);
     }
 
@@ -25,7 +52,7 @@ namespace Jam
         m_id = 0;
     }
 
-    void Texture::loadFromFile(const Jam::File& file) {
+    void Texture::loadFromFile(const Jam::File& file, GLenum minFilter, GLenum magFilter) {
         MISC_CHECK_GEN_ID(m_id);
         glGenTextures(1, &m_id);
         m_type = GL_TEXTURE_2D;
@@ -50,18 +77,21 @@ namespace Jam
             break;
         }
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        setMagFilter(minFilter);
+        setMinFilter(magFilter);
+
+        if (minFilter >= GL_NEAREST_MIPMAP_NEAREST) {
+            generateMipmaps();
+        }
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
 
         unbind();
         stbi_image_free(data);
     }
 
-    void Texture::loadFromArray(void* data, size_t width, size_t height, GLenum internalFormat, GLenum format, GLenum dataType)
+    void Texture::loadFromArray(void* data, size_t width, size_t height, GLenum internalFormat, GLenum format, GLenum dataType, GLenum minFilter, GLenum magFilter)
     {
         MISC_CHECK_GEN_ID(m_id);
         glGenTextures(1, &m_id);
@@ -71,12 +101,20 @@ namespace Jam
         bind();
         glTexImage2D(m_type, 0, internalFormat, width, height, 0, format, dataType, data);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        setMagFilter(minFilter);
+        setMinFilter(magFilter);
+
+        if (minFilter >= GL_NEAREST_MIPMAP_NEAREST) {
+            generateMipmaps();
+        }
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
         unbind();
+    }
+
+    Texture::Texture() : m_id(0), m_width(0), m_height(0), m_channels(0), m_type(GL_TEXTURE_2D), m_minFilter(GL_LINEAR), m_magFilter(GL_LINEAR)
+    {
     }
 }

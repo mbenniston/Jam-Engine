@@ -6,6 +6,8 @@
 #include "UI/Widget.hpp"
 #include "UI/UIRenderer.hpp"
 
+#include "../Assets/Assets.h"
+
 struct GLFWwindow;
 
 namespace Jam
@@ -25,6 +27,8 @@ namespace Jam
 		void open(int width, int height, const std::string& title);
 		void update();
 		void close();
+
+		void setIcon(const std::vector<File>& file);
 
 		glm::ivec2 getSize() const;
 		int getWidth() const;

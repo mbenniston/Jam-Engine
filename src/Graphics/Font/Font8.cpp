@@ -50,7 +50,7 @@ namespace Jam
             }
         }
 
-        m_texture.loadFromArray(font_texture_data.data(), 128 * 8, 8, GL_RED, GL_RED, GL_UNSIGNED_BYTE);
+        m_texture.loadFromArray(font_texture_data.data(), 128 * 8, 8, GL_RED, GL_RED, GL_UNSIGNED_BYTE, GL_NEAREST, GL_NEAREST);
         m_fontAtlas = TextureAtlas(128 * 8, 8, 8, 8);
     }
 

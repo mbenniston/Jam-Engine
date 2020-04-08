@@ -17,15 +17,15 @@ namespace Jam
             index = (GLfloat)(itr - m_textures.begin());
         }
 
-        addVertex(BatchRenderer2D::Vertex{ position, minTexCoord, color, index });
-        addVertex(BatchRenderer2D::Vertex{ position + glm::vec2(size.x, 0), glm::vec2(maxTexCoord.x, minTexCoord.y), color, index });
-        addVertex(BatchRenderer2D::Vertex{ position + size, maxTexCoord, color, index });
-        addVertex(BatchRenderer2D::Vertex{ position + size, maxTexCoord, color, index });
-        addVertex(BatchRenderer2D::Vertex{ position + glm::vec2(0, size.y), glm::vec2(minTexCoord.x, maxTexCoord.y), color, index });
-        addVertex(BatchRenderer2D::Vertex{ position, minTexCoord, color, index });
+        addVertex(Vertex{ position, minTexCoord, color, index });
+        addVertex(Vertex{ position + glm::vec2(size.x, 0), glm::vec2(maxTexCoord.x, minTexCoord.y), color, index });
+        addVertex(Vertex{ position + size, maxTexCoord, color, index });
+        addVertex(Vertex{ position + size, maxTexCoord, color, index });
+        addVertex(Vertex{ position + glm::vec2(0, size.y), glm::vec2(minTexCoord.x, maxTexCoord.y), color, index });
+        addVertex(Vertex{ position, minTexCoord, color, index });
     }
 
-    void BatchRenderer2D::addVertex(BatchRenderer2D::Vertex v)
+    void BatchRenderer2D::addVertex(Vertex v)
     {
         m_vertices.push_back(v);
         if(m_vertices.size() > m_maxVerts) {

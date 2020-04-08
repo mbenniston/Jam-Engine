@@ -85,6 +85,8 @@ void Jam::Window::open(int width, int height, const std::string& title)
 
 	m_renderer = new UIRenderer();
 	setPixelSize((glm::vec2)getSize());
+
+	setIcon({ DEFAULT_ASSETS.openFile("icons/icon.png"), DEFAULT_ASSETS.openFile("icons/icon2.png"), DEFAULT_ASSETS.openFile("icons/icon3.png") });
 }
 
 void Jam::Window::update()
@@ -102,6 +104,38 @@ void Jam::Window::close()
 
 	glfwTerminate();
 	m_handle = nullptr;
+}
+
+static GLFWimage loadImage(const Jam::File& file)
+{
+	int width, height, channels;
+	GLFWimage icon;
+	icon.pixels = stbi_load_from_memory(file.getData().data(), file.getData().size(), &width, &height, &channels, 4);
+	icon.width = width;
+	icon.height = height;
+	if (icon.pixels) {
+		if (channels != 4) {
+			throw std::exception("Icon file doesnt have the correct amount of channels!");
+		}
+	}
+	else {
+		throw std::exception("Could not load icon file!");
+	}
+	return icon;
+}
+
+void Jam::Window::setIcon(const std::vector<File>& files)
+{
+	std::vector<GLFWimage> images;
+
+	for (const File& file : files) {
+		images.push_back(loadImage(file));
+	}
+	glfwSetWindowIcon(m_handle, images.size(), images.data());
+
+	for (GLFWimage image : images) {
+		stbi_image_free(image.pixels);
+	}
 }
 
 glm::ivec2 Jam::Window::getSize() const
