@@ -7,7 +7,7 @@ cd modules\fmt || goto :ERROR
 
 md build
 cd build || goto :ERROR
-cmake .. || goto :ERROR
+cmake -D FMT_TEST=OFF .. || goto :ERROR
 
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" FMT.sln /t:ALL_BUILD /property:Configuration=Debug || goto :ERROR
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" FMT.sln /t:ALL_BUILD /property:Configuration=Release || goto :ERROR

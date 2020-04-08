@@ -7,7 +7,7 @@ cd modules\freealut || goto :ERROR
 
 md build
 cd build || goto :ERROR
-cmake .. -D BUILD_STATIC=ON  -D OPENAL_INCLUDE_DIR="../../openal-soft/include/" -D OPENAL_LIBRARY="../../openal-soft/build/Debug/OpenAL32.lib" || goto :ERROR
+cmake -D BUILD_TESTS=OFF -D BUILD_EXAMPLES=OFF -D BUILD_STATIC=ON  -D OPENAL_INCLUDE_DIR="../../openal-soft/include/" -D OPENAL_LIBRARY="../../openal-soft/build/Debug/OpenAL32.lib" .. || goto :ERROR
 
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" Alut.sln /t:ALL_BUILD /property:Configuration=Debug || goto :ERROR
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" Alut.sln /t:ALL_BUILD /property:Configuration=Release || goto :ERROR

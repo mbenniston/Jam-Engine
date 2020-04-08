@@ -7,7 +7,7 @@ cd modules\openal-soft || goto :ERROR
 
 md build
 cd build || goto :ERROR
-cmake .. || goto :ERROR
+cmake -D ALSOFT_EXAMPLES=OFF -D ALSOFT_TESTS=OFF .. || goto :ERROR
 
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" OpenAL.sln /t:ALL_BUILD /property:Configuration=Debug || goto :ERROR
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" OpenAL.sln /t:ALL_BUILD /property:Configuration=Release || goto :ERROR

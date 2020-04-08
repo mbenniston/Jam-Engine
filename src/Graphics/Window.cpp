@@ -60,7 +60,7 @@ void Jam::Window::open(int width, int height, const std::string& title)
 		throw std::runtime_error("Cannot initialize glfw!");
 	}
 
-	//glfwSetErrorCallback(error_callback);
+	glfwSetErrorCallback(error_callback);
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
