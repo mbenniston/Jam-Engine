@@ -21,13 +21,11 @@ workspace "Game Engine"
     
 project "Jam-Engine"
 	kind "StaticLib"
-		
+	staticruntime "on"	
+	
 	files "modules/imgui/examples/imgui_impl_opengl3.cpp"
 	files "modules/imgui/examples/imgui_impl_glfw.cpp"
 	files "modules/imgui/*.cpp"
-
-
-		 
 
 	filter {"files:modules/imgui/**.cpp"}
 		flags {"NoPCH"}
