@@ -52,11 +52,16 @@ namespace Jam
 
     void BatchRenderer2D::draw(const Camera2D& cam)
     {
+        draw(cam.getProjectionMatrix() * cam.getViewMatrix());
+    }
+
+    void BatchRenderer2D::draw(glm::mat4 projViewMat)
+    {
         m_batchShader.use();
-        m_batchShader.loadUniform("u_vp", cam.getProjectionMatrix() * cam.getViewMatrix());
+        m_batchShader.loadUniform("u_vp", projViewMat);
         m_vertexArray.bind();
 
-        for(int i = 0; i < m_textures.size(); i++) {
+        for (int i = 0; i < m_textures.size(); i++) {
             m_textures[i].bind(i);
         }
 

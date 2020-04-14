@@ -63,7 +63,8 @@ namespace Jam
         void unbind() const;
         void release();
 
-        void loadFromFile(const Jam::File& filePath, GLenum minFilter=GL_LINEAR, GLenum magFilter=GL_LINEAR);
+        void loadFromFile(const Jam::File& filePath, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR);
+        void loadFromMemory(unsigned char* data, size_t dataLength, GLenum minFilter=GL_LINEAR, GLenum magFilter=GL_LINEAR);
         void loadFromArray(void* data, size_t width, size_t height, GLenum internalFormat, GLenum format, GLenum dataType, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR);
 
         bool operator==(const Texture& other) const {

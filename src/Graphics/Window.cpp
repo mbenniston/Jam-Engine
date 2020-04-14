@@ -53,6 +53,17 @@ void glad_cb(const char* name, void* funcptr, int len_args, ...) {
 	// }
 }
 
+glm::ivec2 Jam::Window::getPos() const 
+{
+	glm::ivec2 out;
+	glfwGetWindowPos(m_handle, &out.x, &out.y);
+	return out;
+}
+
+void Jam::Window::setPos(glm::ivec2 pos) const 
+{
+	glfwSetWindowPos(m_handle, pos.x, pos.y);
+}
 
 void Jam::Window::open(int width, int height, const std::string& title)
 {
@@ -64,6 +75,17 @@ void Jam::Window::open(int width, int height, const std::string& title)
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+
+	//un-comment to float window
+	//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+	//glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, 1);
+
+	/*
+		Targeting OpenGL Version >= 4.0
+		GPU >= AMD Radeon HD 5000 series or Nvidia Geforce GT 420
+		Most other functions of the library still work though 
+	*/
 
 	m_handle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (!m_handle) {

@@ -34,6 +34,9 @@ namespace Jam
 		int getWidth() const;
 		int getHeight() const;
 
+		glm::ivec2 getPos() const;
+		void setPos(glm::ivec2 pos) const;
+
 		bool shouldClose() const;
 
 		glm::vec2 getMousePosition() const;

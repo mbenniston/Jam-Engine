@@ -52,6 +52,47 @@ namespace Jam
         m_id = 0;
     }
 
+    void Texture::loadFromMemory(unsigned char* datain, size_t dataLength, GLenum minFilter, GLenum magFilter)
+    {
+        MISC_CHECK_GEN_ID(m_id);
+        glGenTextures(1, &m_id);
+        m_type = GL_TEXTURE_2D;
+
+        unsigned char* data = stbi_load_from_memory(datain, dataLength, &m_width, &m_height, &m_channels, 0);
+        assert(data != nullptr);
+        if (!data) {
+            PLOG_ERROR("could not load texture from file");
+        }
+
+        bind();
+        switch (m_channels)
+        {
+        case 3:
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            break;
+        case 4:
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            break;
+        default:
+            std::cout << m_channels << " channels not supported" << std::endl;
+            break;
+        }
+
+        setMagFilter(minFilter);
+        setMinFilter(magFilter);
+
+        if (minFilter >= GL_NEAREST_MIPMAP_NEAREST) {
+            generateMipmaps();
+        }
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+        unbind();
+        stbi_image_free(data);
+    }
+
+
     void Texture::loadFromFile(const Jam::File& file, GLenum minFilter, GLenum magFilter) {
         MISC_CHECK_GEN_ID(m_id);
         glGenTextures(1, &m_id);
