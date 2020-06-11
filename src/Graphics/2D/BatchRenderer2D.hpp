@@ -46,7 +46,7 @@ namespace Jam
 
         void release();
 
-        BatchRenderer2D(unsigned int initialNumVerts, bool staticBatch = false);
+        BatchRenderer2D(unsigned int initialNumVerts = 100, bool staticBatch = false);
         virtual ~BatchRenderer2D();
     };
 
