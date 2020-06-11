@@ -50,6 +50,14 @@ namespace Jam
         glm::mat4 getProjectionMatrix() const {
             return glm::ortho<float>(0, (float)m_width, (float)m_height, 0);
         }
+
+        Camera2D() : m_width(0), m_height(0), m_position(0, 0)
+        {
+        }
+
+        Camera2D(int width, int height, const glm::vec2& position) : m_width(width), m_height(height), m_position(position) 
+        {
+        }
     };
 
 }

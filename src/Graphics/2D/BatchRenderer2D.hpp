@@ -36,6 +36,7 @@ namespace Jam
 
         void addVertex(Vertex v);
         void addQuad(glm::vec2 position, glm::vec2 size, glm::vec2 minTexCoord, glm::vec2 maxTexCoord, glm::vec3 color, Texture texture);
+        void addQuad(glm::vec2 position, glm::vec2 size, glm::vec3 color);
         void clear();
 
         void draw(glm::mat4 projViewMat = glm::mat4(1.0f));

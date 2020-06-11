@@ -7,9 +7,10 @@ namespace Jam
 
     void BatchRenderer2D::addQuad(glm::vec2 position, glm::vec2 size, glm::vec2 minTexCoord, glm::vec2 maxTexCoord, glm::vec3 color, Texture texture)
     {
+        //add textures to list if they are not in it already
         auto itr = std::find(m_textures.begin(), m_textures.end(), texture);
         GLfloat index;
-
+           
         if(itr == m_textures.end()) {
             m_textures.push_back(texture);
             index = (GLfloat)(m_textures.size() - 1);            
@@ -17,12 +18,24 @@ namespace Jam
             index = (GLfloat)(itr - m_textures.begin());
         }
 
+        //add vertices
         addVertex(Vertex{ position, minTexCoord, color, index });
         addVertex(Vertex{ position + glm::vec2(size.x, 0), glm::vec2(maxTexCoord.x, minTexCoord.y), color, index });
         addVertex(Vertex{ position + size, maxTexCoord, color, index });
         addVertex(Vertex{ position + size, maxTexCoord, color, index });
         addVertex(Vertex{ position + glm::vec2(0, size.y), glm::vec2(minTexCoord.x, maxTexCoord.y), color, index });
         addVertex(Vertex{ position, minTexCoord, color, index });
+    }
+
+    void BatchRenderer2D::addQuad(glm::vec2 position, glm::vec2 size, glm::vec3 color)
+    {
+        //add vertices
+        addVertex(Vertex{ position, {0,0}, color, 0 });
+        addVertex(Vertex{ position + glm::vec2(size.x, 0), {0,0}, color, 0 });
+        addVertex(Vertex{ position + size, {0,0}, color, 0 });
+        addVertex(Vertex{ position + size, {0,0}, color, 0 });
+        addVertex(Vertex{ position + glm::vec2(0, size.y), {0,0}, color, 0 });
+        addVertex(Vertex{ position, {0,0}, color, 0 });
     }
 
     void BatchRenderer2D::addVertex(Vertex v)
@@ -36,6 +49,8 @@ namespace Jam
     
     void BatchRenderer2D::clear()
     {
+        //remove everything from the current batch
+
         m_vertices.clear();
         m_textures.clear();
         m_dirtyBuffer = true;
@@ -43,6 +58,8 @@ namespace Jam
 
     void BatchRenderer2D::refreshBuffer()
     {
+        //rebuild the vertex buffer
+
         m_vertexBuffer.bind();
         m_vertexBuffer.fill(m_vertices.data(), m_vertices.size() * sizeof(BatchRenderer2D::Vertex));
         m_vertexBuffer.unbind();

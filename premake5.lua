@@ -74,3 +74,20 @@ project "Jam-Engine"
 		}
 
     filter {}
+
+project "Jam-Demo"
+	kind "ConsoleApp"
+	staticruntime "on"
+
+    files "demo/**.cpp"
+
+	includedirs { "include" }
+    libdirs { "bin/%{cfg.longname}/" }
+
+	filter "system:Windows" 
+		links { "jengine" }
+	filter "system:linux"
+		links {"jengine", "X11", "dl", "Xrandr", "Xxf86vm", "Xinerama", "Xcursor", "pthread"}
+    filter {}
+
+    filter {}
