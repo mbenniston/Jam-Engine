@@ -42,7 +42,7 @@ namespace Jam
 	{
 		int res = PHYSFS_mountMemory(buf, len, NULL, path.c_str(), name.c_str(), true);
 		if (!res) {
-			PLOG_INFO("{}", PHYSFS_getLastErrorCode());
+			PLOG_INFO("PHYSFS ERROR CODE: {}", PHYSFS_getLastErrorCode());
 			throw std::runtime_error("Could not mount memory archive");
 		}
 

@@ -137,11 +137,11 @@ static GLFWimage loadImage(const Jam::File& file)
 	icon.height = height;
 	if (icon.pixels) {
 		if (channels != 4) {
-			throw std::exception("Icon file doesnt have the correct amount of channels!");
+			throw std::runtime_error("Icon file doesnt have the correct amount of channels!");
 		}
 	}
 	else {
-		throw std::exception("Could not load icon file!");
+		throw std::runtime_error("Could not load icon file!");
 	}
 	return icon;
 }
