@@ -9,14 +9,14 @@ md build
 cd build || goto :ERROR
 cmake -D ALSOFT_EXAMPLES=OFF -D ALSOFT_TESTS=OFF .. || goto :ERROR
 
-python3.8.exe .\..\..\..\replacer.py OpenAL.vcxproj "<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>" -oo
-python3.8.exe .\..\..\..\replacer.py OpenAL.vcxproj "<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreaded</RuntimeLibrary>" -oo
+python.exe .\..\..\..\replacer.py OpenAL.vcxproj "<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>" -oo
+python.exe .\..\..\..\replacer.py OpenAL.vcxproj "<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreaded</RuntimeLibrary>" -oo
 
-python3.8.exe .\..\..\..\replacer.py ex-common.vcxproj "<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>" -oo
-python3.8.exe .\..\..\..\replacer.py ex-common.vcxproj "<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreaded</RuntimeLibrary>" -oo
+python.exe .\..\..\..\replacer.py ex-common.vcxproj "<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>" -oo
+python.exe .\..\..\..\replacer.py ex-common.vcxproj "<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreaded</RuntimeLibrary>" -oo
 
-python3.8.exe .\..\..\..\replacer.py common.vcxproj "<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>" -oo
-python3.8.exe .\..\..\..\replacer.py common.vcxproj "<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreaded</RuntimeLibrary>" -oo
+python.exe .\..\..\..\replacer.py common.vcxproj "<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>" -oo
+python.exe .\..\..\..\replacer.py common.vcxproj "<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>" "<RuntimeLibrary>MultiThreaded</RuntimeLibrary>" -oo
 
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" OpenAL.sln /t:ALL_BUILD;ex-common /property:Configuration=Debug || goto :ERROR
 "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\amd64\MSBuild.exe" OpenAL.sln /t:ALL_BUILD;ex-common /property:Configuration=Release || goto :ERROR

@@ -27,3 +27,7 @@ packer/packer
 packer/Makefile
 packer/Debug
 packer/Release
+
+packer/Packer.exe
+packer/Packer.ilk
+packer/Packer.pdb
