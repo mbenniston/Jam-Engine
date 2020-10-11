@@ -34,4 +34,4 @@
 	url = https://github.com/mbenniston/glad.git
 [submodule "modules/font8x8"]
 	path = modules/font8x8
-	url = https://github.com/dhepper/font8x8.git
+	url = https://github.com/mbenniston/font8x8.git
