@@ -15,11 +15,11 @@ void PowerLogger::logString(Level l, const std::string& message)
         rlutil::setColor(rlutil::GREEN);
         str << ("[DEBUG] ");
         break;
-    case  Level::WARN:
+    case Level::WARN:
         rlutil::setColor(rlutil::YELLOW);
         str << ("[WARNING] ");
         break;
-    case  Level::ERRO:
+    case Level::ERRO:
         rlutil::setColor(rlutil::RED);
         str << ("[ERROR] ");
         break;
