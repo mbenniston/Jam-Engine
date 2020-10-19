@@ -54,7 +54,7 @@ void ImGuiHelper::endFrame(GLFWwindow* window)
 	ImGuiIO& io = ImGui::GetIO();
     int width, height;
     glfwGetWindowSize(window, &width, &height);
-	io.DisplaySize = ImVec2(width, height);
+	io.DisplaySize = ImVec2((float)width, (float)height);
 
 	// Rendering
 	ImGui::Render();

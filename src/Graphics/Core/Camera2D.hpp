@@ -11,7 +11,7 @@ namespace Jam
     {
     protected:
         glm::vec2 m_position;
-        int m_width, m_height;
+        float m_width, m_height;
 
     public:
 
@@ -55,7 +55,7 @@ namespace Jam
         {
         }
 
-        Camera2D(int width, int height, const glm::vec2& position) : m_width(width), m_height(height), m_position(position) 
+        Camera2D(float width, float height, const glm::vec2& position) : m_width(width), m_height(height), m_position(position) 
         {
         }
     };

@@ -58,7 +58,7 @@ namespace Jam
         glGenTextures(1, &m_id);
         m_type = GL_TEXTURE_2D;
 
-        unsigned char* data = stbi_load_from_memory(datain, dataLength, &m_width, &m_height, &m_channels, 0);
+        unsigned char* data = stbi_load_from_memory(datain, (int)dataLength, &m_width, &m_height, &m_channels, 0);
         assert(data != nullptr);
         if (!data) {
             PLOG_ERROR("could not load texture from file");
@@ -98,7 +98,7 @@ namespace Jam
         glGenTextures(1, &m_id);
         m_type = GL_TEXTURE_2D;
 
-        unsigned char* data = stbi_load_from_memory(file.getData().data(), file.getData().size(), &m_width, &m_height, &m_channels, 0);
+        unsigned char* data = stbi_load_from_memory(file.getData().data(), (int)file.getData().size(), &m_width, &m_height, &m_channels, 0);
         assert(data != nullptr);
         if(!data) {
             PLOG_ERROR("could not load texture from file");
@@ -132,7 +132,7 @@ namespace Jam
         stbi_image_free(data);
     }
 
-    void Texture::loadFromArray(void* data, size_t width, size_t height, GLenum internalFormat, GLenum format, GLenum dataType, GLenum minFilter, GLenum magFilter)
+    void Texture::loadFromArray(void* data, int width, int height, GLenum internalFormat, GLenum format, GLenum dataType, GLenum minFilter, GLenum magFilter)
     {
         MISC_CHECK_GEN_ID(m_id);
         glGenTextures(1, &m_id);

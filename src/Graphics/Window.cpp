@@ -132,7 +132,7 @@ static GLFWimage loadImage(const Jam::File& file)
 {
 	int width, height, channels;
 	GLFWimage icon;
-	icon.pixels = stbi_load_from_memory(file.getData().data(), file.getData().size(), &width, &height, &channels, 4);
+	icon.pixels = stbi_load_from_memory(file.getData().data(), (int)file.getData().size(), &width, &height, &channels, 4);
 	icon.width = width;
 	icon.height = height;
 	if (icon.pixels) {
@@ -153,7 +153,7 @@ void Jam::Window::setIcon(const std::vector<File>& files)
 	for (const File& file : files) {
 		images.push_back(loadImage(file));
 	}
-	glfwSetWindowIcon(m_handle, images.size(), images.data());
+	glfwSetWindowIcon(m_handle, (int)images.size(), images.data());
 
 	for (GLFWimage image : images) {
 		stbi_image_free(image.pixels);

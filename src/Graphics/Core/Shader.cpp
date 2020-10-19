@@ -21,7 +21,7 @@ namespace Jam
     static GLuint loadShader(const std::string& source, GLenum type)
     {
         GLuint shader = glCreateShader(type);
-        GLint length = source.length();
+        GLint length = (GLint)source.length();
         const char* string = source.c_str();
         glShaderSource(shader, 1, (const GLchar* const*)&string, &length);
 
@@ -132,7 +132,7 @@ namespace Jam
         for(const auto& name : names) {
             ids.push_back(getSubroutineLocation(shaderType, name));
         } 
-        glUniformSubroutinesuiv(shaderType, ids.size(), ids.data());
+        glUniformSubroutinesuiv(shaderType, (GLsizei)ids.size(), ids.data());
     }
 
     GLuint Shader::getSubroutineLocation(GLenum shaderType, const std::string& name) {

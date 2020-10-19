@@ -18,10 +18,10 @@ namespace Jam
     {
         std::array<unsigned char, 64> texture_data;
 
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
+        for(size_t i = 0; i < 8; i++) {
+            for(size_t j = 0; j < 8; j++) {
                 if(encodedChar[i] & (1 << j)) {
-                    texture_data[j + i * 8] = 255;
+                    texture_data[j + i * 8] = 255; 
                 } else {
                     texture_data[j + i * 8] = 0;
                 }
@@ -32,20 +32,22 @@ namespace Jam
 
     void Font8::init() 
     {
-        std::array<std::array<unsigned char, 64>, 128> char_maps;
+        using CharMapArray = std::array<std::array<unsigned char, 64>, 128>;
+
+        auto char_maps = std::make_unique<CharMapArray>();
 
         for(int i = 0; i < 128; i++) {
-            char_maps[i] = decodeChar(font8x8_basic[i]);
+            (*char_maps)[i] = decodeChar(font8x8_basic[i]);
         }
 
         std::array<unsigned char, 128 * 64> font_texture_data;
 
         //stitch texture together
-        for(int r = 0; r < 8; r++) {
-            for(int i = 0; i < 128; i++) {
-                auto char_data = char_maps[i];
-                for(int j = 0; j < 8; j++){
-                    font_texture_data[j + (i * 8) + r * 128*8] = char_data[j + r * 8];
+        for(size_t r = 0; r < 8; r++) {
+            for(size_t i = 0; i < 128; i++) {
+                auto char_data = (*char_maps)[i];
+                for(size_t j = 0; j < 8; j++){
+                   font_texture_data[j + (i * 8) + r * 128*8] = char_data[j + r * 8];
                 }
             }
         }

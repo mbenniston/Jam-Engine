@@ -87,7 +87,7 @@ namespace Jam
         glEnableVertexAttribArray(2);
         glEnableVertexAttribArray(3);
 
-        glDrawArrays(GL_TRIANGLES, 0, m_vertices.size());
+        glDrawArrays(GL_TRIANGLES, 0, (GLsizei)m_vertices.size());
 
         glDisableVertexAttribArray(3);
         glDisableVertexAttribArray(2);

@@ -19,8 +19,8 @@ namespace Jam
             m_shader.loadSubroutines(GL_FRAGMENT_SHADER, { "GrayScaleSample" });
             m_shader.loadUniform("u_color", text->getTextColor());
             
-            int xi = widget->getPixelPos().x;
-            int yi = widget->getPixelPos().y;
+            int xi = (int)widget->getPixelPos().x;
+            int yi = (int)widget->getPixelPos().y;
             for(char c : text->getText()) {
                 if(c != '\n'){
                     m_shader.loadUniform("u_texTrans", glm::vec2{(float)c, 0});
@@ -30,7 +30,7 @@ namespace Jam
                     xi += 32;
                 } else {
                     yi+=32;
-                    xi = widget->getPixelPos().x;
+                    xi = (int)widget->getPixelPos().x;
                 }
             }
             
