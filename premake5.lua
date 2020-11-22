@@ -78,6 +78,7 @@ project "Jam-Engine"
 project "Jam-Demo"
 	kind "ConsoleApp"
 	staticruntime "on"
+	dependson { "Jam-Engine" }
 
     files "demo/**.cpp"
 
@@ -87,7 +88,7 @@ project "Jam-Demo"
 	filter "system:Windows" 
 		links { "jengine" }
 	filter "system:linux"
-		links {"jengine", "X11", "dl", "Xrandr", "Xxf86vm", "Xinerama", "Xcursor", "pthread"}
+		links {"jengine", "Jam-Engine", "X11", "dl", "Xrandr", "Xxf86vm", "Xinerama", "Xcursor", "pthread"}
     filter {}
 
     filter {}

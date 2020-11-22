@@ -41,12 +41,12 @@ static void resize_cb(GLFWwindow* handle, int w,int h)
 
 void error_callback(int error, const char* description)
 {
-	PLOG_ERROR("Error: {}", description);
+	PLOG_ERROR("Error[{}]: {}", error, description);
 }
-
 
 void glad_cb(const char* name, void* funcptr, int len_args, ...) {
 	// static void* lastFuncPointer = nullptr;
+
 	// if(funcptr != lastFuncPointer) {
 	// 	PLOG_ERROR("GL Error in: {}", name);
 	// 	lastFuncPointer = funcptr;
@@ -65,31 +65,31 @@ void Jam::Window::setPos(glm::ivec2 pos) const
 	glfwSetWindowPos(m_handle, pos.x, pos.y);
 }
 
-void Jam::Window::open(int width, int height, const std::string& title)
+void Jam::Window::open(const WindowSpec& ws) 
 {
-	if(!glfwInit()) {
+	if(glfwInit() == GLFW_FALSE) {
 		throw std::runtime_error("Cannot initialize glfw!");
 	}
 
 	glfwSetErrorCallback(error_callback);
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-
-	//un-comment to float window
-	//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-	//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-	//glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, 1);
 
 	/*
 		Targeting OpenGL Version >= 4.0
 		GPU >= AMD Radeon HD 5000 series or Nvidia Geforce GT 420
 		Most other functions of the library still work though 
 	*/
+	m_handle = glfwCreateWindow(ws.width, ws.height, ws.title.c_str(), NULL, NULL);
 
-	m_handle = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	glfwWindowHint(GLFW_RESIZABLE, ws.resizable);
+	glfwWindowHint(GLFW_DECORATED, ws.decorated);
+	glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, ws.transparentfb);
+
 	if (!m_handle) {
-		throw std::runtime_error("Could not open window!");
+		throw std::runtime_error("GLFW error Could not open window!");
 	}
 
 	glfwMakeContextCurrent(m_handle);
@@ -188,11 +188,12 @@ bool Jam::Window::shouldClose() const
 
 Jam::Window::Window() : Jam::Frame({ 0,0 }, { 0,0 }, { 0,0 }, { 0,0 }), m_handle(nullptr)
 {
+	open(WindowSpec{});
 }
 
-Jam::Window::Window(int width, int height, const std::string& title) : Jam::Frame({ 0,0 }, { 1,1 }, {0,0}, {width, height})
+Jam::Window::Window(const WindowSpec& ws) : Jam::Frame({ 0,0 }, { 1,1 }, {0,0}, {ws.width, ws.height})
 {
-	open(width, height, title);
+	open(ws);
 }
 
 Jam::Window::~Window()

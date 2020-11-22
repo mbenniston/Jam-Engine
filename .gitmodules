@@ -35,3 +35,7 @@
 [submodule "modules/font8x8"]
 	path = modules/font8x8
 	url = https://github.com/mbenniston/font8x8.git
+[submodule "modules/packer"]
+	path = modules/packer
+	url = https://github.com/mbenniston/packer
+	branch = premake

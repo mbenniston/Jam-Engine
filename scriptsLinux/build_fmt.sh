@@ -9,10 +9,10 @@ mkdir -p build
 cd build || exit
 cmake .. || exit
 
-make -j4 config=debug || exit
+make fmt -j4 config=debug || exit
 mkdir -p "../../../deps/fmt/Debug/" && cp "./" "../../../deps/fmt/Debug" -r || exit
 
-make -j4 config=release || exit
+make fmt -j4 config=release || exit
 mkdir -p "../../../deps/fmt/Release/" && cp "./" "../../../deps/fmt/Release" -r || exit
 
 # /Jam-Engine

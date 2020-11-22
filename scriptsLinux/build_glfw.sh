@@ -7,7 +7,7 @@ cd modules/glfw || exit
 
 mkdir -p build
 cd build || exit
-cmake .. || exit
+cmake -D BUILD_SHARED_LIBS=OFF .. || exit
 
 make -j4 config=debug || exit
 mkdir -p "../../../deps/glfw/Debug/" && cp "src/" "../../../deps/glfw/Debug/" -r || exit

@@ -68,7 +68,7 @@ namespace Jam
 		static void deinit();
 
 		static Archive LoadArchive(const std::string& name, const std::string& path);
-		static Archive LoadArchiveFromMemory(void* buf, size_t len, const std::string& name, const std::string& path);
+		static Archive LoadArchiveFromMemory(const void*const buf, size_t len, const std::string& name, const std::string& path);
 
 		~AssetLoader();
 	};

@@ -12,6 +12,13 @@ struct GLFWwindow;
 
 namespace Jam
 {
+	struct WindowSpec
+	{
+		int width = 1280, height = 720;
+		bool resizable = true, decorated = false, transparentfb = false;
+		std::string title = "Jam Window";
+	};
+
 	class Window final : public Frame
 	{
 	private:
@@ -24,7 +31,7 @@ namespace Jam
 			return m_handle;
 		}
 
-		void open(int width, int height, const std::string& title);
+		void open(const WindowSpec& ws);
 		void update();
 		void close();
 
@@ -43,7 +50,7 @@ namespace Jam
 		bool getMouseButton(int btn) const;
 
 		Window();
-		Window(int width, int height, const std::string& title);
+		Window(const WindowSpec& ws);
 		~Window();
 	};
 }
