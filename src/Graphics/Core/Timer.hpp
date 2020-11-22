@@ -22,5 +22,4 @@ public:
         auto timeTaken = m_end-m_start;
         return (double)std::chrono::duration_cast<std::chrono::nanoseconds>(timeTaken).count() * powf(10, -6);
     }
-
 };

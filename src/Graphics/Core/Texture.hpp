@@ -3,7 +3,7 @@
 
 #include "vendor.h"
 
-#include "../../Assets/AssetLoader.h"
+#include "../../Assets/ArchiveLoader.h"
 
 namespace Jam
 {

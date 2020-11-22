@@ -12,6 +12,8 @@ struct GLFWwindow;
 
 namespace Jam
 {
+	static constexpr std::array<const char*, 3> DEFAULT_ICON_PATHS = {"icons/icon.png", "icons/icon2.png", "icons/icon3.png"};
+	
 	struct WindowSpec
 	{
 		int width = 1280, height = 720;

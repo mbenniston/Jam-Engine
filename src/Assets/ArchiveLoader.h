@@ -58,7 +58,7 @@ namespace Jam
 
 	extern Archive DEFAULT_ASSETS;
 
-	class AssetLoader final
+	class ArchiveLoader final
 	{
 	private:
 
@@ -70,7 +70,7 @@ namespace Jam
 		static Archive LoadArchive(const std::string& name, const std::string& path);
 		static Archive LoadArchiveFromMemory(const void*const buf, size_t len, const std::string& name, const std::string& path);
 
-		~AssetLoader();
+		~ArchiveLoader();
 	};
 
 }

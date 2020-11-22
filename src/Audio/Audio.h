@@ -2,7 +2,7 @@
 
 #include "vendor.h"
 
-#include "../Assets/AssetLoader.h"
+#include "../Assets/ArchiveLoader.h"
 #include "../misc.hpp"
 #include "../PowerLogger.hpp"
 

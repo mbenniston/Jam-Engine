@@ -6,7 +6,6 @@
 #include "PowerLogger.hpp"
 #include "UI/Events.hpp"
 
-
 static void keypress_cb(GLFWwindow* handle, int key, int scancode, int action, int mods)
 {
 	Jam::Window* win = (Jam::Window*)glfwGetWindowUserPointer(handle); 
@@ -108,7 +107,7 @@ void Jam::Window::open(const WindowSpec& ws)
 	m_renderer = new UIRenderer();
 	setPixelSize((glm::vec2)getSize());
 
-	setIcon({ DEFAULT_ASSETS.openFile("icons/icon.png"), DEFAULT_ASSETS.openFile("icons/icon2.png"), DEFAULT_ASSETS.openFile("icons/icon3.png") });
+	setIcon({ DEFAULT_ASSETS.openFile(DEFAULT_ICON_PATHS[0]), DEFAULT_ASSETS.openFile(DEFAULT_ICON_PATHS[1]), DEFAULT_ASSETS.openFile(DEFAULT_ICON_PATHS[2]) });
 }
 
 void Jam::Window::update()

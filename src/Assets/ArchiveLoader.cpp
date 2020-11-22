@@ -1,5 +1,5 @@
 #include "jampch.h"
-#include "AssetLoader.h"
+#include "ArchiveLoader.h"
 #include <physfs.h>
 #include <array>
 #include <iostream>
@@ -13,7 +13,7 @@ namespace Jam
 {
 	Archive DEFAULT_ASSETS;
 
-	void AssetLoader::init(const char* argv0)
+	void ArchiveLoader::init(const char* argv0)
 	{
 		PHYSFS_init(argv0);
 		MISC_LINC();
@@ -21,13 +21,13 @@ namespace Jam
 		DEFAULT_ASSETS = LoadArchiveFromMemory(DEFAULT_RES_SRC, DEFAULT_RES_SRC_length, "default_res", "default_res.tar.gz");
 	}
 
-	void AssetLoader::deinit()
+	void ArchiveLoader::deinit()
 	{
 		PHYSFS_deinit();
 		MISC_LDEC();
 	}
 
-	Archive AssetLoader::LoadArchive(const std::string& name, const std::string& path)
+	Archive ArchiveLoader::LoadArchive(const std::string& name, const std::string& path)
 	{
 		int res = PHYSFS_mount(path.c_str(), name.c_str(), true);
 		if (!res) {
@@ -38,7 +38,7 @@ namespace Jam
 		return Archive(name);
 	}
 
-	Archive AssetLoader::LoadArchiveFromMemory(const void* const buf, size_t len, const std::string& name, const std::string& path)
+	Archive ArchiveLoader::LoadArchiveFromMemory(const void* const buf, size_t len, const std::string& name, const std::string& path)
 	{
 		int res = PHYSFS_mountMemory(buf, len, NULL, path.c_str(), name.c_str(), true);
 		if (!res) {
@@ -49,7 +49,7 @@ namespace Jam
 		return Archive(name);
 	}
 
-	AssetLoader::~AssetLoader()
+	ArchiveLoader::~ArchiveLoader()
 	{
 	}
 
